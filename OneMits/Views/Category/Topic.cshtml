@@ -1,0 +1,144 @@
+﻿@model OneMits.Models.Category.CategoryTopicModel
+
+
+<div class="w3-container w3-white w3-margin w3-padding-large mt-50 Openquestion">
+    <div class="row">
+        <div class="col-md-10">
+            <a style="text-decoration: none; color: #302b2b" class="question">
+                <h4> @Model.Category.CategoryTitle</h4>
+            </a>
+
+
+            <div class="w3-row w3-margin-bottom" id="demo1">
+                <div class="w3-col l10 m9 ">
+                    <h5>
+                        <span>
+                            Number Of Forums : <span class="w3-opacity w3-medium">
+                                @Model.Category.QuestionCount
+                            </span>
+                        </span>
+                    </h5>
+
+                </div>
+            </div>
+
+            <div class="w3-justify">
+                <p>
+                    @Model.Category.CategoryDescription
+                </p>
+
+                <p class="w3-clear"></p>
+
+            </div>
+        </div>
+        <div class="col-md-2">
+
+            @if (Context.User.Identity.IsAuthenticated)
+            {
+                <p class="w3-left">
+                    <a asp-controller="Question" asp-action="Create" asp-route-id="@Model.Category.CategoryId">
+                        <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
+                            <b>
+                                <i class="fa fa-eye"></i> Ask Question
+                            </b>
+                        </button>
+                    </a>
+
+                </p>
+            }
+            @if (User.IsInRole("Admin"))
+            {
+                <a class=" w3-button" asp-controller="Category" asp-action="Delete" asp-route-id="@Model.Category.CategoryId">
+                    <i class="fa fa-trash" style="font-size:20px; align-content:center"></i>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+@if (Model.Questions.Any())
+{
+    @foreach (var question in Model.Questions)
+    {
+        <div class="w3-container w3-white w3-margin w3-padding-large Openquestion">
+            <a style="text-decoration: none;color:#302b2b" asp-controller="Question"
+               asp-action="Index" asp-route-id="@question.QuestionId" class="question">
+                <h4> @question.QuestionTitle</h4>
+            </a>
+
+            <div class="w3-row w3-margin-bottom" id="demo1">
+                <div class="w3-col l10 m9">
+                    <h5>
+                        <span>
+                            By : <span class="w3-opacity w3-medium">
+                                     <a asp-controller="Profile" asp-action="Detail" asp-route-id="@question.AuthorId" class="By_color">
+
+                                         @question.AuthorName
+                                     </a>
+                            </span>
+                        </span>
+                    </h5>
+                </div>
+            </div>
+
+            <div class="w3-justify">
+                               
+                <p class="w3-left">
+                    <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
+                        <b>
+                            <i class="fa fa-eye"></i> @question.NumberView
+                        </b>
+                    </button>
+                </p>
+                <p class="w3-left">
+                    <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
+                        <b>
+                            <i class="fa fa-comment" style=" color: #df3d3d"></i>
+                            @if (question.AnswerCount == 0)
+
+                            {
+                                <span>No Replies</span>
+                            }
+
+                            else
+                            {
+                                <span>@question.AnswerCount Replies</span>
+                            }
+                        </b>
+                    </button>
+                </p>
+                <a class="w3-button w3-right w3-opacity w3-Bpad  w3-white w3-border">
+                    <b>
+                        <i class="fa fa-history" style="font-size:15px;"></i>&nbsp
+                        @question.QuestionCreated
+                    </b>
+                </a>
+
+                <p class="w3-clear"></p>
+
+            </div>
+
+        </div>
+        <hr>
+    }
+    @*<button class="btn-re" style="margin-left: 600px">More Post</button>*@
+}
+else
+{
+    <div class="noPosts">
+        <h3>
+            No posts found. Why not
+            <a asp-controller="Question" asp-action="Create" asp-route-id="@Model.Category.CategoryId">
+                <span>Ask</span>
+            </a>
+            Something?
+        </h3>
+    </div>
+}
+
+@section Scripts{
+    <script>
+        function clearThis(target) {
+            target.value = "";
+        }</script>
+}

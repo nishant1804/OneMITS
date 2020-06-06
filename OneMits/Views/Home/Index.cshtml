@@ -1,0 +1,345 @@
+﻿@model OneMits.Models.Home.HomeIndexModel
+
+
+
+<div class="w3-content" style="max-width:1600px">
+    <!-- Grid -->
+    <div class="w3-row w3-padding ">
+
+        <!-- Blog entries -->
+        <div class="w3-col l8 s12 ">
+
+            <div>
+                <ul class="nav nav-pills w3-margin" role="tablist" style=" letter-spacing: 2px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#home">Recent Question</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#menu1">Popular Question</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#menu2"> Most Responses</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+                        <br>
+                        @foreach (var question in Model.RecentQuestion)
+                        {
+                            <!-- Blog entry -->
+                            <div class="w3-container  w3-white w3-margin  w3-padding-large">
+                                <div class="w3-hover-sand">
+                                    <a style="text-decoration: none;color:#302b2b" asp-controller="Question"
+                                       asp-action="Index" asp-route-id="@question.QuestionId" class="question ">
+                                        <h4> @question.QuestionTitle</h4>
+                                    </a>
+                                </div>
+
+                                <div class="w3-row w3-margin-bottom" id="demo1">
+                                    <div class="w3-col l10 m9">
+                                        <h5>
+                                            <span>
+                                                By : <span class="w3-opacity w3-medium">
+                                                    <a asp-controller="Profile"
+                                                       asp-action="Details"
+                                                       asp-route-id="@question.AuthorId" class="By_color ">
+
+                                                        @question.AuthorName
+                                                    </a>
+                                                </span>
+                                            </span>
+                                            <span class="w3-right">
+                                                Category : <span class="w3-opacity w3-medium">
+                                                    <a asp-controller="Category"
+                                                       asp-action="Topic"
+                                                       asp-route-id="@question.Category.CategoryId" class="By_color">
+                                                        @question.Category.CategoryTitle
+                                                    </a>
+                                                </span>
+                                            </span>
+                                        </h5>
+                                    </div>
+                                </div>
+
+                                <div class="w3-justify">
+                                    <p  class="w3-hover-sand">
+                                        @question.QuestionContent
+                                    </p>
+                                    <p class="w3-left">
+                                        <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
+                                            <b>
+                                                <i class="fa fa-eye"></i> @question.NumberView
+                                            </b>
+                                        </button>
+                                    </p>
+                                    <p class="w3-left">
+                                        <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
+                                            <b>
+                                                <i class="fa fa-comment" style=" color: #df3d3d"></i>
+                                                @if (question.AnswerCount == 0)
+                                                {
+                                                    <span>No Replies</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@question.AnswerCount Replies</span>
+                                                }
+                                            </b>
+                                        </button>
+                                    </p>
+                                    <a class="w3-button w3-right w3-opacity w3-Bpad  w3-white w3-border" >
+                                        <b><i class="fa fa-history" style="font-size:15px;"></i>&nbsp 
+                                            @question.QuestionCreated 
+                                        </b>
+                                    </a>
+                                    
+                                    <p class="w3-clear"></p>
+
+                                </div>
+
+                            </div>
+                            <hr>
+                        }
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <br>
+                        @foreach (var question in Model.PopularQuestion)
+                        {
+                            <!-- Blog entry -->
+                            <div class="w3-container w3-white w3-margin w3-padding-large">
+                                <div class="w3-hover-sand">
+                                    <a style="text-decoration: none;color:#302b2b" asp-controller="Question"
+                                       asp-action="Index" asp-route-id="@question.QuestionId" class="question ">
+                                        <h4> @question.QuestionTitle</h4>
+                                    </a>
+                                </div>
+
+                                <div class="w3-row w3-margin-bottom" id="demo1">
+                                    <div class="w3-col l10 m9">
+                                        <h6>
+                                            <span>
+                                                By : <span class="w3-opacity w3-medium">
+                                                    <a asp-controller="Profile"
+                                                       asp-action="Details"
+                                                       asp-route-id="@question.AuthorId">
+
+                                                        @question.AuthorName
+                                                    </a>
+                                                </span>
+                                            </span>
+                                            <span class="w3-right">
+                                                Category : <span class="w3-opacity w3-medium">
+                                                    <a asp-controller="Category"
+                                                       asp-action="Topic"
+                                                       asp-route-id="@question.Category.CategoryId">
+                                                        @question.Category.CategoryTitle
+                                                    </a>
+                                                </span>
+                                            </span>
+                                        </h6>
+                                    </div>
+                                </div>
+
+                                <div class="w3-justify">
+                                    <p  class="w3-hover-sand">
+                                        @question.QuestionContent
+                                    </p>
+                                    <p class="w3-left">
+                                        <button class="w3-button w3-white w3-border" onclick="likeFunction(this)">
+                                            <b>
+                                                <i class="fa fa-eye"></i> @question.NumberView
+                                            </b>
+                                        </button>
+                                    </p>
+                                    <p class="w3-left">
+                                        <button class="w3-button w3-white w3-border" onclick="likeFunction(this)">
+                                            <b>
+                                                <i class="fa fa-comment"></i>
+                                                @if (question.AnswerCount == 0)
+                                                {
+                                                    <span>No Replies</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@question.AnswerCount Replies</span>
+                                                }
+                                            </b>
+                                        </button>
+                                    </p>
+
+                                    <p class="w3-right w3-opacity w3-medium"><b><i class="fa fa-history" style="font-size:20px;"></i>&nbsp @question.QuestionCreated </b></p>
+                                    <p class="w3-clear"></p>
+
+                                </div>
+
+                            </div>
+                            <hr>
+                        }
+                    </div>
+                    <div id="menu2" class=" tab-pane fade">
+                        <br>
+                        @foreach (var question in Model.MostResponseQuestion)
+                        {
+                            <!-- Blog entry -->
+                            <div class="w3-container w3-white w3-margin w3-padding-large">
+                                <div class="w3-hover-sand">
+                                    <a style="text-decoration: none;color:#302b2b" asp-controller="Question"
+                                       asp-action="Index" asp-route-id="@question.QuestionId" class="question ">
+                                        <h4> @question.QuestionTitle</h4>
+                                    </a>
+                                </div>
+
+                                <div class="w3-row w3-margin-bottom" id="demo1">
+                                    <div class="w3-col l10 m9">
+                                        <h6>
+                                            <span>
+                                                By : <span class="w3-opacity w3-medium">
+                                                    <a asp-controller="Profile"
+                                                       asp-action="Details"
+                                                       asp-route-id="@question.AuthorId">
+
+                                                        @question.AuthorName
+                                                    </a>
+                                                </span>
+                                            </span>
+                                            <span class="w3-right">
+                                                Category : <span class="w3-opacity w3-medium">
+                                                    <a asp-controller="Category"
+                                                       asp-action="Topic"
+                                                       asp-route-id="@question.Category.CategoryId">
+                                                        @question.Category.CategoryTitle
+                                                    </a>
+                                                </span>
+                                            </span>
+                                        </h6>
+                                    </div>
+                                </div>
+
+                                <div class="w3-justify">
+                                    <p  class="w3-hover-sand">
+                                        @question.QuestionContent
+                                    </p>
+                                    <p class="w3-left">
+                                        <button class="w3-button w3-white w3-border" onclick="likeFunction(this)">
+                                            <b>
+                                                <i class="fa fa-eye"></i> @question.NumberView
+                                            </b>
+                                        </button>
+                                    </p>
+                                    <p class="w3-left">
+                                        <button class="w3-button w3-white w3-border" onclick="likeFunction(this)">
+                                            <b>
+                                                <i class="fa fa-comment"></i>
+                                                @if (question.AnswerCount == 0)
+                                                {
+                                                    <span>No Replies</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@question.AnswerCount Replies</span>
+                                                }
+                                            </b>
+                                        </button>
+                                    </p>
+
+                                    <p class="w3-right w3-opacity w3-medium"><b><i class="fa fa-history" style="font-size:20px;"></i>&nbsp @question.QuestionCreated </b></p>
+                                    <p class="w3-clear"></p>
+
+                                </div>
+
+                            </div>
+                            <hr>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Blog entry -->
+            <!-- Blog entry -->
+            <!-- Blog entry -->
+            <!-- END BLOG ENTRIES -->
+        </div>
+
+        <!-- About/Information menu -->
+        <div class="w3-col l4">
+            <!-- About Card -->
+            <div class="w3-white w3-margin">
+                <div class="w3-container w3-black">
+                    <h4>Today</h4>
+                    <p>Just me, myself and I, exploring the universe of uknownment. I have a heart of love and a interest of lorem ipsum and mauris neque quam blog. I want to share my world with you.</p>
+                </div>
+            </div>
+            <hr>
+
+            <!-- Posts -->
+            <div class="w3-white w3-margin">
+                <div class="w3-container w3-padding w3-black">
+                    <h4>Recent Activite</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    <li>
+                        <br>
+                        <span>Sed mattis nunc Title description non congue ullam corper. Praesent tincidunt sedtellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non</span>
+                    </li>
+                    <li>
+                        <br>
+                        <span>Praes tinci pent tincidunt sedtellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non</span>
+                    </li>
+                    <li>
+                        <br>
+                        <span>Lorem ipsum dipsTitle description non congue ullamsto condimentum, porta lectus vitae, ultricies congue gravida diam nonum</span>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+
+            <div class="w3-white w3-margin">
+                <div class="w3-container w3-padding w3-black">
+                    <h4>Branch Notice</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    <li>
+                        <br>
+                        <span>Sed mattis nunc Title description non congue ullam corper. Praesent tincidunt sedtellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non</span>
+                    </li>
+                    <li>
+                        <br>
+                        <span>Praes tinci pent tincidunt sedtellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non</span>
+                    </li>
+                    <li>
+                        <br>
+                        <span>Lorem ipsum dipsTitle description non congue ullamsto condimentum, porta lectus vitae, ultricies congue gravida diam nonum</span>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+
+            <!-- Advertising -->
+            <!-- Tags -->
+            <div class="w3-white w3-margin">
+                <div class="w3-container w3-padding w3-black">
+                    <h4>Popluar Forums</h4>
+                </div>
+                <div class="w3-container w3-white">
+                    <p>
+                        <span class="w3-tag w3-black w3-margin-bottom">Fashion</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">New York</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">London</span>
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Hats</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Norway</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Sweaters</span>
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Deals</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Accessories</span>
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">News</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Clothing</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Shopping</span>
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Jeans</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Trends</span>
+                    </p>
+                </div>
+            </div>
+            <hr>
+
+
+
+            <!-- END About/Intro Menu -->
+        </div>
+
+        <!-- END GRID -->
+    </div>
+
+    <!-- END w3-content -->
+</div>

@@ -1,0 +1,77 @@
+﻿@model OneMits.Models.Category.CategoryIndexModel
+
+<div class="mb-45">
+    <span class="QTitle">
+        Forums
+    </span>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="w3-button w3-border backButton">
+            <a asp-controller="Category" asp-action="Create">
+                Add Forum
+            </a>
+
+        </div>
+    }
+</div>
+
+
+
+@foreach (var category in Model.CategoryList)
+{
+    <div class="w3-container w3-white w3-margin w3-padding-large Openquestion">
+    <div class="row">
+        <div class="col-md-10">
+            <a style="text-decoration: none; color: #302b2b" class="question w3-button" asp-controller="Category" asp-action="Topic" asp-route-id="@category.CategoryId">
+                <h4> @category.CategoryTitle</h4>
+            </a>
+            @*if (User.Identity.Name == User.IsInRole("Admin"))
+        {
+            <a class="MA w3-button w3-right" asp-controller="Question" asp-action="Delete" asp-route-id="@category.CategoryId">
+                <i class="fa fa-trash" style="font-size:20px; color : red"></i>
+            </a>}*@
+
+            <div class="w3-row w3-margin-bottom" id="demo1">
+                <div class="w3-col l10 m9 ">
+                    <h5>
+                        <span>
+                            Number Of Forums : <span class="w3-opacity w3-medium">
+                                @category.QuestionCount
+                            </span>
+                        </span>
+                    </h5>
+
+                </div>
+            </div>
+
+            <div class="w3-justify">
+                <p>
+                    @category.CategoryDescription
+                </p>
+                
+                <p class="w3-clear"></p>
+
+            </div>
+        </div>
+        <div class="col-md-2">
+            <p class="w3-left">
+                <a asp-controller="Question" asp-action="Create" asp-route-id="@category.CategoryId">
+                    <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)" asp-controller="Question" asp-action="Create" asp-route-id="@category.CategoryId">
+                        <b>
+                            <i class="fa fa-eye"></i> Ask Question
+                        </b>
+                    </button>
+                </a>
+                
+            </p>
+        </div>
+    </div>
+    </div>
+    <hr />
+}
+
+
+
+
+
+

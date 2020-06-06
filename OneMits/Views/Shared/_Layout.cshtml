@@ -1,0 +1,152 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<OneMits.Data.Models.ApplicationUser> SignInManager
+@inject UserManager<OneMits.Data.Models.ApplicationUser> UserManager
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] OneMits</title>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src="js/main3.js"></script>
+        <script src="js/site.js"></script>
+
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css' />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="load-more-button.css" rel="stylesheet" />
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' />
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css' /><link rel="stylesheet" href="./style.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />
+        <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css" />
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' />
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' /><link rel="stylesheet" href="./style.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="load-more-button.js"></script>
+
+    </environment>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css' />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+        <link rel="stylesheet" href="~/css/style4.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
+
+</head>
+<body class="w3-light-grey">
+    <div class="w3-top " style="background: white;">
+        <div class="w3-bar" id="myNavbar">
+            <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+                <i class="fa fa-bars"></i>
+            </a>
+            <a asp-controller="Home" asp-action="Index" class="w3-bar-item w3-button"><h2>ONEMITS</h2></a>
+            <a asp-controller="Home" asp-action="Index" class="w3-bar-item navitemMargin w3-button w3-hide-small">Home</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-controller="AdminPanel" asp-action="Index" class="w3-bar-item  navitemMargin w3-button w3-hide-small"><i class="fa fa-user"></i>Admin Panel</a>
+            }
+            <a asp-controller="Category" asp-action="Index" class="w3-bar-item navitemMargin  w3-button w3-hide-small"><i class="fa fa-th"></i> Forums</a>
+            <a asp-controller="Home" asp-action="AboutUs" class="w3-bar-item navitemMargin  w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
+            <a asp-controller="Category" asp-action="Index" class=" w3-hover-red" onclick="toggleFunction()">
+                <partial name="_LoginPartial" />
+            </a>
+            <a class="w3-bar-item w3-hide-small navitemMargin w3-right w3-button  w3-hover-red">
+                <form asp-controller="Search" asp-action="Search" method="post">
+                    <i class="fa fa-search"></i><input name="SearchQuery" type="text" placeholder="Search.." required=required />
+                </form>
+            </a>
+        </div>
+
+        <!-- Navbar on small screens -->
+        <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium ">
+            <a asp-controller="Home" asp-action="Index" class="w3-bar-item w3-button" onclick="toggleFunction()">HOME</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-controller="AdminPanel" asp-action="Index" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-user"></i>Admin Panel</a>
+            }
+
+            <a asp-controller="Category" asp-action="Index" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-th"></i>Forum</a>
+            <a asp-controller="Home" asp-action="AboutUs" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-envelope"></i>About Us</a>
+            <a asp-controller="Category" asp-action="Index" onclick="toggleFunction()">
+                <partial name="_LoginPartial" />
+            </a>
+            <a href="#" class="w3-bar-item w3-button w3-hover-red" onclick="toggleFunction()">
+                <i class="fa fa-search"></i>
+            </a>
+        </div>
+    </div>
+    <div class="mt-200 ">
+        @RenderBody()
+    </div>
+
+
+
+    <footer class="w3-container w3-dark-grey  mt-20" style="padding:32px">
+        <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">CopyRight@OneMITS</a></p>
+    </footer>
+
+
+
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function toggleFunction() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+        window.onscroll = function () { myFunction() };
+        function myFunction() {
+            var navbar = document.getElementById("myNavbar");
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+            } else {
+                navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+            }
+        }
+    </script>
+    <script src="~/js/main3.js" asp-append-version="true"></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js'></script>
+    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

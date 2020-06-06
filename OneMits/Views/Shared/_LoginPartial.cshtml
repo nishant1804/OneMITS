@@ -1,0 +1,39 @@
+
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Identity
+@using OneMits.Data.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+    <ul>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            var userId = UserManager.GetUserId(User);
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" >
+                
+                        <a class="w3-bar-item w3-button navitemMargin " style="margin-right:0px" asp-controller="Profile" asp-action="Details" asp-route-id="@userId">
+                            @User.Identity.Name
+                        </a>
+                    
+                        <button type="submit" class="btn btn-link w3-button navitemMargin " style="margin-left:0px" >
+                            <i class="material-icons">power_settings_new</i></button>
+                    
+            </form>
+        }
+        else
+        {
+
+          
+            
+                <!-- inser more links here -->
+                <a style="text-decoration: none;" class="w3-bar-item navitemMargin  w3-button" asp-area="Identity" asp-page="/Account/Login">
+                     SignIn</a>
+                
+                <a style="text-decoration: none;" class="w3-bar-item navitemMargin  w3-button" asp-area="Identity" asp-page="/Account/Register">
+                     SignUp</a>
+                
+
+            
+
+        }
+    </ul>
