@@ -10,8 +10,8 @@ using OneMits.Data;
 namespace OneMits.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200223195716_asas")]
-    partial class asas
+    [Migration("20200608200514_tstmig3")]
+    partial class tstmig3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -236,6 +236,36 @@ namespace OneMits.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("OneMits.Data.Models.ConnectedList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("User1");
+
+                    b.Property<string>("User2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ConnectedList");
+                });
+
+            modelBuilder.Entity("OneMits.Data.Models.ConnectingList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("User1");
+
+                    b.Property<string>("User2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ConnectingList");
+                });
+
             modelBuilder.Entity("OneMits.Data.Models.LikeAnswer", b =>
                 {
                     b.Property<int>("Id")
@@ -332,6 +362,20 @@ namespace OneMits.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("OneMits.Data.Models.TeacherTable", b =>
+                {
+                    b.Property<string>("EnrollmentNumber")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DateOfBirth");
+
+                    b.Property<string>("EmailAddress");
+
+                    b.HasKey("EnrollmentNumber");
+
+                    b.ToTable("TeacherTable");
                 });
 
             modelBuilder.Entity("OneMits.Data.Models.Visits", b =>

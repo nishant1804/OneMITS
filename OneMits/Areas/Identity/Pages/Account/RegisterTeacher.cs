@@ -15,18 +15,18 @@ using OneMits.Data;
 namespace OneMits.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class RegisterModel : PageModel
+    public class RegisterTeacherModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILogger<RegisterModel> _logger;
+        private readonly ILogger<RegisterTeacherModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IApplicationUser _applicationUserInterface;
 
-        public RegisterModel(
+        public RegisterTeacherModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<RegisterModel> logger,
+            ILogger<RegisterTeacherModel> logger,
             IEmailSender emailSender,
             IApplicationUser applicationUserInterface)
         {
@@ -48,7 +48,7 @@ namespace OneMits.Areas.Identity.Pages.Account
             [Display(Name = "DOB")]
             public string DateOfBirth { get; set; }
             [Required]
-            
+
             [Display(Name = "EnrollmentId")]
             public string UserName { get; set; }
 
@@ -74,22 +74,22 @@ namespace OneMits.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var Student = _applicationUserInterface.GetByEnrollment(Input.UserName);
-                if(Student == null)
+                var Student = _applicationUserInterface.GetByTeacherEnrollment(Input.UserName);
+                if (Student == null)
                 {
                     return RedirectToAction("NotFound", "Home");
                 }
-                if(Student.DateOfBirth != Input.DateOfBirth)
+                if (Student.DateOfBirth != Input.DateOfBirth)
                 {
-                    return RedirectToAction("NotFound","Home");
+                    return RedirectToAction("NotFound", "Home");
                 }
-                
-                var user = new ApplicationUser { UserName = Input.UserName, Email = Student.EmailAddress, MemberSince = DateTime.Now, IsActive = false};
+
+                var user = new ApplicationUser { UserName = Input.UserName, Email = Student.EmailAddress, MemberSince = DateTime.Now, IsActive = false };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    await _userManager.AddToRoleAsync(user, "Student");
+                    await _userManager.AddToRoleAsync(user, "Teacher");
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",

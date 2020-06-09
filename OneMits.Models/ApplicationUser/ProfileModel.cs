@@ -18,6 +18,8 @@ namespace OneMits.Models.ApplicationUser
 
         public string SearchQuery { get; set; }
         public bool EmptySearchResults { get; set; }
+        public string OpenUserId { get; set; }
+        public string RequestOption { get; set; }
     }
 }
 

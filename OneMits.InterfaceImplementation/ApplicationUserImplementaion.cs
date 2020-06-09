@@ -21,11 +21,43 @@ namespace OneMits.InterfaceImplementation
         {
             return _context.ApplicationUsers;
         }
-        
+        public IEnumerable<ConnectingList> GetAllRequest()
+        {
+            return _context.ConnectingList;
+        }
 
         public ApplicationUser GetById(string id)
         {
             return GetAll().FirstOrDefault(user => user.Id == id);
+        }
+        public string GetByRequestId(ConnectingList connectingList)
+        {
+            var temp1 = new ConnectingList {
+                User1 = "1",
+                User2 = "2"
+            };
+            var tmp1 = new ConnectingList
+            {
+                User1 = "1",
+                User2 = "2"
+            };
+            var temp = GetAllRequest().Where(user1 => user1.User1 == connectingList.User1);
+            temp1 = temp.FirstOrDefault(user2 => user2.User2 == connectingList.User2);
+            var tmp = GetAllRequest().Where(user1 => user1.User1 == connectingList.User2);
+            tmp1 = tmp.FirstOrDefault(user2 => user2.User2 == connectingList.User1);
+            if (temp1 == null && tmp1 == null)
+            {
+                return "connect";
+            }
+            if (temp1 != null && tmp1 == null)
+            {
+                return "requestsent";
+            }
+            if (temp1 == null && tmp1 != null)
+            {
+                return "accept";
+            }
+            return ".";
         }
 
         public async Task UpdateUserRating(string userId, Type type)
@@ -87,6 +119,10 @@ namespace OneMits.InterfaceImplementation
         {
             return _context.OtpTable;
         }
+        public IEnumerable<TeacherTable> GetAllTeachers()
+        {
+            return _context.TeacherTable;
+        }
 
         public OtpTable GetByEnrollment(string enrollmentNumber)
         {
@@ -108,6 +144,28 @@ namespace OneMits.InterfaceImplementation
             await _context.SaveChangesAsync();
         }
 
-        
+        public TeacherTable GetByTeacherEnrollment(string enrollmentNumber)
+        {
+            return GetAllTeachers().FirstOrDefault(teacher => teacher.EnrollmentNumber == enrollmentNumber);
+        }
+
+        public async Task SendRequest(ConnectingList connectModel)
+        {
+            _context.ConnectingList.Add(connectModel);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteRequest(ConnectingList connectModel)
+        {
+            _context.ConnectingList.RemoveRange(connectModel);
+            _context.ConnectingList.Remove(connectModel);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AcceptRequest(ConnectedList connectModel)
+        {
+            _context.ConnectedList.Add(connectModel);
+            await _context.SaveChangesAsync();
+        }
     }
 }

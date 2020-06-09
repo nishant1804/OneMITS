@@ -20,5 +20,8 @@ namespace OneMits.Data
         public DbSet<LoginTime> LoginTime { get; set; }
         public DbSet<Visits> Visits { get; set; }
         public DbSet<OtpTable> OtpTable { get; set; }
+        public DbSet<TeacherTable> TeacherTable { get; set; }
+        public DbSet<ConnectedList> ConnectedList { get; set; }
+        public DbSet<ConnectingList> ConnectingList { get; set; }
     }
 }

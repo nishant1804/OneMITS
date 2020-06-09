@@ -40,6 +40,16 @@ namespace OneMits.Data
             {
                 await roleStore.CreateAsync(new IdentityRole { Name = "Admin", NormalizedName = "admin" });
             }
+            var hasStudentRole = _context.Roles.Any(roles => roles.Name == "Student");
+            if (!hasStudentRole)
+            {
+                await roleStore.CreateAsync(new IdentityRole { Name = "Student", NormalizedName = "student" });
+            }
+            var hasTeacherRole = _context.Roles.Any(roles => roles.Name == "Teacher");
+            if (!hasTeacherRole)
+            {
+                await roleStore.CreateAsync(new IdentityRole { Name = "Teacher", NormalizedName = "Teacher" });
+            }
 
             var hasSuperUser = _context.Users.Any(u => u.NormalizedUserName == user.UserName);
             if (!hasSuperUser)

@@ -10,8 +10,8 @@ using OneMits.Data;
 namespace OneMits.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200223200647_asasasadsd")]
-    partial class asasasadsd
+    [Migration("20200608135250_newtstmig")]
+    partial class newtstmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -332,6 +332,20 @@ namespace OneMits.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("OneMits.Data.Models.TeacherTable", b =>
+                {
+                    b.Property<string>("EnrollmentNumber")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DateOfBirth");
+
+                    b.Property<string>("EmailAddress");
+
+                    b.HasKey("EnrollmentNumber");
+
+                    b.ToTable("TeacherTable");
                 });
 
             modelBuilder.Entity("OneMits.Data.Models.Visits", b =>
