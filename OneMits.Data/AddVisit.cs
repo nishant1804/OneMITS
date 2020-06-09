@@ -7,6 +7,7 @@ namespace OneMits.Data
 {
     public class AddVisit
     {
+       // private readonly 
         private readonly IApplicationUser _applicationUserImplementation;
         private readonly IHttpContextAccessor _accessor;
         private readonly ApplicationDbContext _context;
