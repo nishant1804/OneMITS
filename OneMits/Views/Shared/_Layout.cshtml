@@ -64,6 +64,7 @@
             {
                 <a asp-controller="AdminPanel" asp-action="Index" class="w3-bar-item  navitemMargin w3-button w3-hide-small"><i class="fa fa-user"></i>Admin Panel</a>
             }
+            <a asp-controller="Status" asp-action="Index" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-th"></i>Status</a>
             <a asp-controller="Category" asp-action="Index" class="w3-bar-item navitemMargin  w3-button w3-hide-small"><i class="fa fa-th"></i> Forums</a>
             <a asp-controller="Home" asp-action="AboutUs" class="w3-bar-item navitemMargin  w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
             <a asp-controller="Category" asp-action="Index" class=" w3-hover-red" onclick="toggleFunction()">
@@ -85,6 +86,7 @@
             }
 
             <a asp-controller="Category" asp-action="Index" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-th"></i>Forum</a>
+            <a asp-controller="Status" asp-action="Index" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-th"></i>Status</a>
             <a asp-controller="Home" asp-action="AboutUs" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-envelope"></i>About Us</a>
             <a asp-controller="Category" asp-action="Index" onclick="toggleFunction()">
                 <partial name="_LoginPartial" />

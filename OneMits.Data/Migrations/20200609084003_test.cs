@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OneMits.Data.Migrations
 {
-    public partial class tstmig : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,6 +68,34 @@ namespace OneMits.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ConnectedList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    User1 = table.Column<string>(nullable: true),
+                    User2 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConnectedList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConnectingList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    User1 = table.Column<string>(nullable: true),
+                    User2 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConnectingList", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LoginTime",
                 columns: table => new
                 {
@@ -92,6 +120,19 @@ namespace OneMits.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OtpTable", x => x.EnrollmentNumber);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TeacherTable",
+                columns: table => new
+                {
+                    EnrollmentNumber = table.Column<string>(nullable: false),
+                    DateOfBirth = table.Column<string>(nullable: true),
+                    EmailAddress = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeacherTable", x => x.EnrollmentNumber);
                 });
 
             migrationBuilder.CreateTable(
@@ -424,6 +465,12 @@ namespace OneMits.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ConnectedList");
+
+            migrationBuilder.DropTable(
+                name: "ConnectingList");
+
+            migrationBuilder.DropTable(
                 name: "LikeAnswers");
 
             migrationBuilder.DropTable(
@@ -434,6 +481,9 @@ namespace OneMits.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "OtpTable");
+
+            migrationBuilder.DropTable(
+                name: "TeacherTable");
 
             migrationBuilder.DropTable(
                 name: "Visits");

@@ -362,6 +362,27 @@ namespace OneMits.Data.Migrations
                     b.ToTable("Questions");
                 });
 
+            modelBuilder.Entity("OneMits.Data.Models.Status", b =>
+                {
+                    b.Property<int>("StatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("NumberViews");
+
+                    b.Property<DateTime>("StatusCreated");
+
+                    b.Property<string>("StatusTitle");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("StatusId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Status");
+                });
+
             modelBuilder.Entity("OneMits.Data.Models.TeacherTable", b =>
                 {
                     b.Property<string>("EnrollmentNumber")
@@ -475,6 +496,13 @@ namespace OneMits.Data.Migrations
                         .WithMany("Questions")
                         .HasForeignKey("CategoryId");
 
+                    b.HasOne("OneMits.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("OneMits.Data.Models.Status", b =>
+                {
                     b.HasOne("OneMits.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
