@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OneMits.Data;
 
 namespace OneMits.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200610130922_tstmig12")]
+    partial class tstmig12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -327,35 +329,6 @@ namespace OneMits.Data.Migrations
                     b.ToTable("LoginTime");
                 });
 
-            modelBuilder.Entity("OneMits.Data.Models.Notification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Action");
-
-                    b.Property<string>("ActionId");
-
-                    b.Property<string>("Controller");
-
-                    b.Property<DateTime>("DateTime");
-
-                    b.Property<string>("UserFromId");
-
-                    b.Property<string>("UserToId");
-
-                    b.Property<string>("notification");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserFromId");
-
-                    b.HasIndex("UserToId");
-
-                    b.ToTable("Notification");
-                });
-
             modelBuilder.Entity("OneMits.Data.Models.OtpTable", b =>
                 {
                     b.Property<string>("EnrollmentNumber")
@@ -513,17 +486,6 @@ namespace OneMits.Data.Migrations
                     b.HasOne("OneMits.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("OneMits.Data.Models.Notification", b =>
-                {
-                    b.HasOne("OneMits.Data.Models.ApplicationUser", "UserFrom")
-                        .WithMany()
-                        .HasForeignKey("UserFromId");
-
-                    b.HasOne("OneMits.Data.Models.ApplicationUser", "UserTo")
-                        .WithMany()
-                        .HasForeignKey("UserToId");
                 });
 
             modelBuilder.Entity("OneMits.Data.Models.Question", b =>

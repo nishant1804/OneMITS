@@ -23,5 +23,6 @@ namespace OneMits.Data
         public DbSet<TeacherTable> TeacherTable { get; set; }
         public DbSet<ConnectedList> ConnectedList { get; set; }
         public DbSet<ConnectingList> ConnectingList { get; set; }
+        public DbSet<Notification> Notification { get; set; }
     }
 }

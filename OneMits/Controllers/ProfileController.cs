@@ -6,6 +6,8 @@ using OneMits.Data;
 using OneMits.Data.Models;
 using OneMits.Models.ApplicationUser;
 using OneMits.Models.Search;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,72 +19,188 @@ namespace OneMits.Controllers
         private readonly UserManager<ApplicationUser> _profileManager;
         private readonly IApplicationUser _profileImplementation;
         private readonly IApplicationUser _userImplementation;
-        private static UserManager<ApplicationUser> _userManager;
+        
+        
         private ApplicationDbContext _context;
-        public ProfileController(IApplicationUser profileImplementation, IApplicationUser userImplementation,UserManager<ApplicationUser> profileManager,ApplicationDbContext context)
+        public ProfileController(IApplicationUser profileImplementation, IApplicationUser userImplementation, UserManager<ApplicationUser> profileManager,ApplicationDbContext context)
         {
             _profileImplementation = profileImplementation;
             _profileManager = profileManager;
             _userImplementation = userImplementation;
             _context = context;
+           
         }
 
         public IActionResult Details(string id)
         {
             var user = _profileImplementation.GetById(id);
             var userRoles = _profileManager.GetRolesAsync(user).Result;
-            var connectModel = new ConnectModel
+            var userId = _profileManager.GetUserId(User);
+            var usertmp = _profileManager.FindByIdAsync(userId).Result;
+            var connectModel = new ConnectingList
             {
-                UserId1 = _profileManager.GetUserId(User),
-                UserId2 = id
+                Sender = usertmp,
+                Receiver = user
             };
-            var connectingModel = BuildRequest(connectModel);
-            var hasSendRequest = _profileImplementation.GetByRequestId(connectingModel);
+            var hasSendRequest = _profileImplementation.GetByRequestId(connectModel);
+            var Notifications = new List<Notification>();
+            Notifications = _profileImplementation.GetNotifications(usertmp).ToList();
+            var notificationListing = Notifications.Select(notification => new NotificationModel
+            {
+                notification = notification.notification,
+                DateTime = notification.DateTime,
+                UserFrom = notification.UserFrom.UserName,
+                Controller = notification.Controller,
+                Action = notification.Action,
+                ActionId = notification.ActionId
+            });
             var model = new ProfileModel()
             {
                 RequestOption = hasSendRequest,
-                OpenUserId = connectModel.UserId1,
+                OpenUserId = userId,
                 UserId = user.Id,
                 UserName = user.UserName,
                 UserRating = user.Rating,
                 MemberSince = user.MemberSince,
                 Email = user.Email,
-                IsAdmin = userRoles.Contains("Admin")
+                IsAdmin = userRoles.Contains("Admin"),
+                notifications = notificationListing
             };
             return View(model);
         }
-
-        public async Task<IActionResult> SendRequest(string id)
+        public async Task<IActionResult> UnFriend(string id)
         {
-            var connectModel = new ConnectModel
-            {
-                UserId1 = _profileManager.GetUserId(User),
-                UserId2 = id
-            };
-            
-            var connectingModel = BuildRequest(connectModel);
-            await _userImplementation.SendRequest(connectingModel);
+            var user = _profileImplementation.GetById(id);
 
-            return RedirectToAction("Profile", "Details", id);
+            var userId = _profileManager.GetUserId(User);
+            var usertmp = _profileManager.FindByIdAsync(userId).Result;
+            var connectModel = new ConnectingList
+            {
+                Sender = usertmp,
+                Receiver = user
+            };
+
+            
+            await _userImplementation.UnFriend(connectModel);
+            var notificationModel = new Notification {
+                notification = " removed you from connection list",
+                DateTime = DateTime.Now,
+                UserFrom = usertmp,
+                UserTo = user,
+                Controller = "Profile",
+                Action = "Details",
+                ActionId = userId 
+            };
+            await _profileImplementation.AddNotification(notificationModel);
+            return RedirectToAction("Details", new { id });
+        }
+        public async Task<IActionResult> CancelRequest(string id)
+        {
+            var user = _profileImplementation.GetById(id);
+            var userId = _profileManager.GetUserId(User);
+            var usertmp = _profileManager.FindByIdAsync(userId).Result;
+            var connectModel = new ConnectingList
+            {
+                Sender = usertmp,
+                Receiver = user
+            };
+            await _userImplementation.DeleteRequest(connectModel);
+            var notificationModel = new Notification
+            {
+                notification = " canceled the connection request",
+                DateTime = DateTime.Now,
+                UserFrom = usertmp,
+                UserTo = user,
+                Controller = "Profile",
+                Action = "Details",
+                ActionId = userId
+            };
+            await _profileImplementation.AddNotification(notificationModel);
+            return RedirectToAction("Details", new { id });
+        }
+        public async Task<IActionResult> DenyRequest(string id)
+        {
+            var user = _profileImplementation.GetById(id);
+            var userId = _profileManager.GetUserId(User);
+            var usertmp = _profileManager.FindByIdAsync(userId).Result;
+            var connectModel = new ConnectingList
+            {
+                Sender = user,
+                Receiver = usertmp
+            };
+            await _userImplementation.DenyRequest(connectModel);
+            var notificationModel = new Notification
+            {
+                notification = "denied your connection request",
+                DateTime = DateTime.Now,
+                UserFrom = usertmp,
+                UserTo = user,
+                Controller = "Profile",
+                Action = "Details",
+                ActionId = userId
+            };
+            await _profileImplementation.AddNotification(notificationModel);
+            return RedirectToAction("Details", new { id });
         }
         public async Task<IActionResult> AcceptRequest(string id)
         {
-            var connectModel = new ConnectModel
+            var user = _profileImplementation.GetById(id);
+            var userId = _profileManager.GetUserId(User);
+            var usertmp = _profileManager.FindByIdAsync(userId).Result;
+            var connectModel = new ConnectingList
             {
-                UserId1 = _profileManager.GetUserId(User),
-                UserId2 = id
+                Sender = user,
+                Receiver = usertmp
             };
-
-            var connectingModel = BuildAcceptRequest(connectModel);
-            await _userImplementation.AcceptRequest(connectingModel);
-
-            connectModel.UserId1 = id;
-            connectModel.UserId2 = _profileManager.GetUserId(User);
-            var DeleteModel = BuildRequest(connectModel);
-            await _userImplementation.DeleteRequest(DeleteModel);
-            return RedirectToAction("Profile", "Details", new { id = connectModel.UserId1 });
+            await _userImplementation.AcceptRequest(connectModel);
+            var notificationModel = new Notification
+            {
+                notification = "accepted your connection request",
+                DateTime = DateTime.Now,
+                UserFrom = usertmp,
+                UserTo = user,
+                Controller = "Profile",
+                Action = "Details",
+                ActionId = userId
+            };
+            await _profileImplementation.AddNotification(notificationModel);
+            return RedirectToAction("Details", new { id });
         }
-        private ConnectedList BuildAcceptRequest(ConnectModel connectModel)
+        public async Task<IActionResult> SendRequest(string id)
+        {
+            var user = _profileImplementation.GetById(id);
+            var userId = _profileManager.GetUserId(User);
+            var usertmp = _profileManager.FindByIdAsync(userId).Result;
+            var connectModel = new ConnectingList
+            {
+                Sender = usertmp,
+                Receiver = user
+            };
+            await _userImplementation.SendRequest(connectModel);
+            var notificationModel = new Notification
+            {
+                notification = "sent you connection request",
+                DateTime = DateTime.Now,
+                UserFrom = usertmp,
+                UserTo = user,
+                Controller = "Profile",
+                Action = "Details",
+                ActionId = userId
+            };
+            await _profileImplementation.AddNotification(notificationModel);
+            return RedirectToAction("Details", id);
+        }
+        
+        
+        private ConnectingList BuildRequest(ConnectingList connectModel)
+        {
+            return new ConnectingList
+            {
+                Sender = connectModel.Sender,
+                Receiver = connectModel.Receiver
+            };
+        }
+        private ConnectedList BuildConnectedRequest(ConnectModel connectModel)
         {
             return new ConnectedList
             {
@@ -90,35 +208,9 @@ namespace OneMits.Controllers
                 User2 = connectModel.UserId2
             };
         }
-        public async Task<IActionResult> CancelRequest(string id)
+        private ConnectedList BuildAcceptRequest(ConnectModel connectModel)
         {
-            var connectModel = new ConnectModel
-            {
-                UserId1 = _profileManager.GetUserId(User),
-                UserId2 = id
-            };
-
-            var connectingModel = BuildRequest(connectModel);
-            await _userImplementation.DeleteRequest(connectingModel);
-
-            return RedirectToAction("Profile", "Details", new { id = connectModel.UserId2 });
-        }
-        public async Task<IActionResult> DenyRequest(string id)
-        {
-            var connectModel = new ConnectModel
-            {
-                UserId1 = id,
-                UserId2 = _profileManager.GetUserId(User)
-            };
-
-            var connectingModel = BuildRequest(connectModel);
-            await _userImplementation.DeleteRequest(connectingModel);
-
-            return RedirectToAction("Profile", "Details", new { id = connectModel.UserId1 });
-        }
-        private ConnectingList BuildRequest(ConnectModel connectModel)
-        {
-            return new ConnectingList
+            return new ConnectedList
             {
                 User1 = connectModel.UserId1,
                 User2 = connectModel.UserId2
