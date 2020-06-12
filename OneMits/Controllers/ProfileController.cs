@@ -44,8 +44,12 @@ namespace OneMits.Controllers
             };
             var hasSendRequest = _profileImplementation.GetByRequestId(connectModel);
             var Notifications = new List<Notification>();
+            var rNotifications = new List<Notification>();
+            var uNotifications = new List<Notification>();
             Notifications = _profileImplementation.GetNotifications(usertmp).ToList();
-            var notificationListing = Notifications.Select(notification => new NotificationModel
+            uNotifications = Notifications.Where(tmp11 => tmp11.Status == false).ToList();
+            rNotifications = Notifications.Where(tmp11 => tmp11.Status == true).ToList();
+            var unreadnotificationListing = uNotifications.Select(notification => new NotificationModel
             {
                 notification = notification.notification,
                 DateTime = notification.DateTime,
@@ -54,6 +58,16 @@ namespace OneMits.Controllers
                 Action = notification.Action,
                 ActionId = notification.ActionId
             });
+            var readnotificationListing = rNotifications.Where(tmp11 => tmp11.Status == true).Select(notification => new NotificationModel
+            {
+                notification = notification.notification,
+                DateTime = notification.DateTime,
+                UserFrom = notification.UserFrom.UserName,
+                Controller = notification.Controller,
+                Action = notification.Action,
+                ActionId = notification.ActionId
+            });
+            _profileImplementation.MarkRead(usertmp).Wait();
             var model = new ProfileModel()
             {
                 RequestOption = hasSendRequest,
@@ -64,8 +78,10 @@ namespace OneMits.Controllers
                 MemberSince = user.MemberSince,
                 Email = user.Email,
                 IsAdmin = userRoles.Contains("Admin"),
-                notifications = notificationListing
+                notificationsunread = unreadnotificationListing,
+                notificationsread = readnotificationListing
             };
+           // _profileImplementation.AddNotificationCount(usertmp).Wait();
             return View(model);
         }
         public async Task<IActionResult> UnFriend(string id)

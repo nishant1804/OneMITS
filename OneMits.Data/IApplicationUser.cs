@@ -31,5 +31,7 @@ namespace OneMits.Data
         Task Delete(string id);
         Task UnDelete(string id);
         Task AddNotification(Notification notification);
+        Task AddNotificationCount(ApplicationUser applicationUser);
+        Task MarkRead(ApplicationUser applicationUser); 
     }
 }

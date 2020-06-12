@@ -290,10 +290,26 @@ namespace OneMits.InterfaceImplementation
 
         public async Task AddNotification(Notification notification)
         {
-            _context.Notification.Add(notification);
+           // var tmp = notification.UserTo;
+            //tmp.UnreadNotification += 1;
+            _context.Notification.Add(notification); 
+            await _context.SaveChangesAsync();
+        }
+        public async Task AddNotificationCount(ApplicationUser applicationUser)
+        {
+            //var user = applicationUser;
+           // applicationUser.UnreadNotification = 0;
             await _context.SaveChangesAsync();
         }
 
-        
+        public async Task MarkRead(ApplicationUser applicationUser)
+        {
+            var tmp = GetNotifications(applicationUser).Where(tmp11 => tmp11.Status == false);
+            foreach(var tmp1 in tmp)
+            {
+                tmp1.Status = true; 
+            }
+            await _context.SaveChangesAsync();
+        }
     }
 }

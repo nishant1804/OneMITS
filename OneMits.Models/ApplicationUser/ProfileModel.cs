@@ -20,7 +20,8 @@ namespace OneMits.Models.ApplicationUser
         public bool EmptySearchResults { get; set; }
         public string OpenUserId { get; set; }
         public string RequestOption { get; set; }
-        public IEnumerable<NotificationModel> notifications { get; set; }
+        public IEnumerable<NotificationModel> notificationsunread { get; set; }
+        public IEnumerable<NotificationModel> notificationsread { get; set; }
     }
 }
 

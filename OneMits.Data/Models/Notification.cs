@@ -16,5 +16,6 @@ namespace OneMits.Data.Models
         public string Controller { get; set; }
         public string Action { get; set; }
         public string ActionId { get; set; }
+        public bool Status { get; set; } = false;
     }
 }

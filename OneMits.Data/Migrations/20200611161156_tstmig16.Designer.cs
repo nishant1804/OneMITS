@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OneMits.Data;
 
 namespace OneMits.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200611161156_tstmig16")]
+    partial class tstmig16
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -199,6 +201,8 @@ namespace OneMits.Data.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
+                    b.Property<int>("UnreadNotification");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
@@ -340,8 +344,6 @@ namespace OneMits.Data.Migrations
                     b.Property<string>("Controller");
 
                     b.Property<DateTime>("DateTime");
-
-                    b.Property<bool>("Status");
 
                     b.Property<string>("UserFromId");
 
