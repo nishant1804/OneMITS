@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OneMits.Data;
 
 namespace OneMits.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200611161156_tstmig16")]
+    partial class tstmig16
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -199,6 +201,8 @@ namespace OneMits.Data.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
+                    b.Property<int>("UnreadNotification");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
@@ -341,8 +345,6 @@ namespace OneMits.Data.Migrations
 
                     b.Property<DateTime>("DateTime");
 
-                    b.Property<bool>("Status");
-
                     b.Property<string>("UserFromId");
 
                     b.Property<string>("UserToId");
@@ -397,27 +399,6 @@ namespace OneMits.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Questions");
-                });
-
-            modelBuilder.Entity("OneMits.Data.Models.Status", b =>
-                {
-                    b.Property<int>("StatusId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("NumberViews");
-
-                    b.Property<DateTime>("StatusCreated");
-
-                    b.Property<string>("StatusTitle");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("StatusId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Status");
                 });
 
             modelBuilder.Entity("OneMits.Data.Models.TeacherTable", b =>
@@ -555,13 +536,6 @@ namespace OneMits.Data.Migrations
                         .WithMany("Questions")
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("OneMits.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("OneMits.Data.Models.Status", b =>
-                {
                     b.HasOne("OneMits.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
