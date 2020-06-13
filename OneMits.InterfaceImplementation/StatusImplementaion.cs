@@ -48,9 +48,15 @@ namespace OneMits.InterfaceImplementation
         public IEnumerable<Status> GetAll()
         {
             return _context.Status
+                .Include(status => status.StatusCategory)
                  .Include(status => status.User);
         }
-
+        public IEnumerable<Status> GetFilteredStatus(int id)
+        {
+            return _context.Status.Where(Statusid => Statusid.StatusCategory.StatusCategoryId == id)
+                .Include(status => status.User)
+                .Include(status => status.StatusCategory); ;
+        }
         public IEnumerable<Status> GetFilteredStatus(string searchQuery)
         {
             return GetAll().Where(post => post.StatusTitle.Contains(searchQuery));

@@ -47,6 +47,7 @@ namespace OneMits
             services.AddScoped<ICategory, CategoryImplementation>();
             services.AddScoped<IQuestion, QuestionImplementation>();
             services.AddScoped<IStatus, StatusImplementation>();
+            services.AddScoped<IStatusCategory, StatusCategoryImplementation>();
             services.AddScoped<IApplicationUser, ApplicationUserImplementation>();
             services.AddTransient<AdminRoleCreation>();
             services.AddTransient<AddVisit>();

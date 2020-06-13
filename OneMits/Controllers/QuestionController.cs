@@ -113,6 +113,8 @@ namespace OneMits.Controllers
              return RedirectToAction("Index", "Question", new { id = question.QuestionId });
         }
 
+
+
         private Question BuildPost(NewQuestionModel model, ApplicationUser user)
         {
             var category = _categoryImplementation.GetById(model.CategoryId);

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OneMits.Data;
 
 namespace OneMits.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200610115807_ascxv")]
+    partial class ascxv
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -387,7 +389,7 @@ namespace OneMits.Data.Migrations
                     b.ToTable("Status");
                 });
 
-            modelBuilder.Entity("OneMits.Data.Models.StatusCategoryListingModel", b =>
+            modelBuilder.Entity("OneMits.Data.Models.StatusCategory", b =>
                 {
                     b.Property<int>("StatusCategoryId")
                         .ValueGeneratedOnAdd()
@@ -520,7 +522,7 @@ namespace OneMits.Data.Migrations
 
             modelBuilder.Entity("OneMits.Data.Models.Status", b =>
                 {
-                    b.HasOne("OneMits.Data.Models.StatusCategoryListingModel", "StatusCategory")
+                    b.HasOne("OneMits.Data.Models.StatusCategory", "StatusCategory")
                         .WithMany("Status")
                         .HasForeignKey("StatusCategoryId");
 

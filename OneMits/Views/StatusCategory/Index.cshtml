@@ -1,0 +1,18 @@
+﻿
+@model OneMits.Models.StatusCategory.StatusCategoryIndexModel
+
+
+@foreach (var category in Model.StatusCategoryList)
+{
+    <div class="w3-container w3-white w3-margin w3-padding-large Openquestion">
+        <div class="row">
+            <div class="col-md-10">
+                <a style="text-decoration: none; color: #302b2b" class="question w3-button" asp-controller="StatusCategory" asp-action="AllStatus" asp-route-id="@category.StatusCategoryId">
+                    <h4> @category.StatusCategoryTitle</h4>
+                </a>
+               
+            </div>
+            </div>
+    </div>
+    <hr />
+}

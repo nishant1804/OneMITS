@@ -13,6 +13,7 @@ namespace OneMits.Data
         }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<StatusCategory> StatusCategories { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Status> Status { get; set; }
         public DbSet<Answer> Answers { get; set; }

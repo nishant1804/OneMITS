@@ -10,7 +10,9 @@ namespace OneMits.Data
     {
         Status GetById(int id);
         IEnumerable<Status> GetAll();
+        IEnumerable<Status> GetFilteredStatus(int id);
         IEnumerable<Status> GetFilteredStatus(string searchQuery);
+        
         IEnumerable<Status> GetLatestStatus(int n);
         
 

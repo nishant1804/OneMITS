@@ -1917,6 +1917,10 @@ Team
     width: 74%;
     margin: auto !important;
 }
+.OpenStatus {
+    width: 95%;
+    margin: auto !important;
+}
 
 .navitemMargin {
     margin: 26px 13px 3px 11px;
@@ -2376,5 +2380,3 @@ input, textarea {
         height: 41px;
     }
 }
-
-

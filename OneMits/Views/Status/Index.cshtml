@@ -1,4 +1,4 @@
-﻿@model OneMits.Models.Status.StatusIndexModel
+﻿@model OneMits.Models.StatusCategory.StatusCatogeryTopicModel
 
 <p class="w3-left">
     <a asp-controller="Status" asp-action="Create">
@@ -10,60 +10,346 @@
     </a>
 
 </p>
+<p class="w3-right">
+    <a asp-controller="StatusCategory" asp-action="AddCategory">
+        <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
+            <b>
+                <i class="fa fa-eye"></i> ADD
+            </b>
+        </button>
+    </a>
+
+</p>
 
 
-    @foreach (var status in Model.StatusList)
-    {
-        <div class="w3-container w3-white w3-margin w3-padding-large Openquestion">
-            <a style="text-decoration: none;color:#302b2b" asp-controller="Status"
-               asp-action="Index" asp-route-id="@status.StatusId" class="question">
-                <h4> @status.StatusTitle</h4>
-            </a>
+<div class="w3-content" style="max-width:1600px">
+    <!-- Grid -->
+    <div class="w3-row w3-padding ">
 
-            <div class="w3-row w3-margin-bottom" id="demo1">
-                <div class="w3-col l10 m9">
-                    <h5>
-                        <span>
-                            By : <span class="w3-opacity w3-medium">
-                                <a asp-controller="Profile" asp-action="Detail" asp-route-id="@status.AuthorId" class="By_color">
+        <!-- Blog entries -->
+        <div class="w3-col l7 s12 ">
+            <div>
+                @*<div>
+                <ul class="nav nav-pills w3-margin" role="tablist" style=" letter-spacing: 2px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#home">All Feed</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#menu1">Friend Feed</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#menu2"> Your Feed</a>
+                    </li>
 
-                                    @status.AuthorName
-                                </a>
-                            </span>
-                        </span>
-                    </h5>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+                        <br>
+                        @foreach (var question in Model.StatusCategory)
+                        {
+                            <div class="w3-container w3-deep-orange  w3-margin w3-padding-large mt-50 OpenStatus">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <a style="text-decoration: none; color: #302b2b" class="question">
+                                            <h4> @question.StatusCategoryTitle</h4>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <hr />
+
+                            @if (question.Status.Any())
+                            {
+                                @foreach (var q in question.Status)
+                                {
+                                    <div class="w3-container w3-white w3-margin w3-padding-large OpenStatus">
+                                        <a style="text-decoration: none;color:#302b2b" asp-controller="Question"
+                                           asp-action="Index" asp-route-id="@q.StatusId" class="question">
+                                            <h4> @q.StatusTitle</h4>
+                                        </a>
+                                        <div class="w3-justify">
+
+                                            <p class="w3-left">
+                                                <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
+                                                    <b>
+
+                                                    </b>
+                                                </button>
+                                            </p>
+
+                                            <a class="w3-button w3-right w3-opacity w3-Bpad  w3-white w3-border">
+                                                <b>
+                                                    <i class="fa fa-history" style="font-size:15px;"></i>&nbsp
+                                                    @q.StatusCreated
+                                                </b>
+                                            </a>
+
+                                            <p class="w3-clear"></p>
+
+                                        </div>
+
+                                    </div>
+                                    <hr>
+                                }
+                            }
+                            else
+                            {
+                                <div class="noPosts">
+                                    <h3>
+                                        No posts found. Why not
+                                        <a asp-controller="Question" asp-action="Create" asp-route-id="@question.StatusCategoryId">
+                                            <span>Ask</span>
+                                        </a>
+                                        Something?
+                                    </h3>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <br>
+
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <br>
+
+                    </div>
+                    <div id="menu3" class="tab-pane fade">
+                        <br>
+
+                    </div>
                 </div>
+            </div> *@
             </div>
 
-            <div class="w3-justify">
 
-                <p class="w3-left">
-                    <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
-                        <b>
-                            <i class="fa fa-eye"></i> @status.NumberView
-                        </b>
-                    </button>
-                </p>
+            <form method="post" asp-controller="Status" asp-action="Index">
+                <input type="hidden" name="StatusCategoryName" id="StatusCategoryTitle" />
+                <div class="row">
+                    <div class="col-md-5">
+                        <select id="ddlDept" name="StatusCategoryId" asp-for="StatusCategoryId" asp-items="@(new SelectList(Model.StatusCategory,"StatusCategoryId","StatusCategoryTitle"))" class="form-control" onchange="SetDept()">
+                            <option value="0">Please select Department</option>
+                        </select>
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </div>
+                <div class="row mt-5 ml-5" id="divData"></div>
+            </form>
+           
+        </div>
+        <div class="w3-col l5">
+            <!-- About Card -->
 
-                <a class="w3-button w3-right w3-opacity w3-Bpad  w3-white w3-border">
-                    <b>
-                        <i class="fa fa-history" style="font-size:15px;"></i>&nbsp
-                        @status.StatusCreated
-                    </b>
-                </a>
-
-                <p class="w3-clear"></p>
-
+            <div class="w3-white w3-margin">
+                <div class="w3-container w3-padding w3-black">
+                    <h4>All Notice</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    <li>
+                        <br>
+                        <span>Sed mattis nunc Title description non congue ullam corper. Praesent tincidunt sedtellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non</span>
+                    </li>
+                    <li>
+                        <br>
+                        <span>Praes tinci pent tincidunt sedtellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non</span>
+                    </li>
+                    <li>
+                        <br>
+                        <span>Lorem ipsum dipsTitle description non congue ullamsto condimentum, porta lectus vitae, ultricies congue gravida diam nonum</span>
+                    </li>
+                </ul>
             </div>
+            <hr>
+
+            <div class="w3-white w3-margin">
+                <div class="w3-container w3-padding w3-black">
+                    <h4>Branch Notice</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    <li>
+                        <br>
+                        <span>Sed mattis nunc Title description non congue ullam corper. Praesent tincidunt sedtellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non</span>
+                    </li>
+                    <li>
+                        <br>
+                        <span>Praes tinci pent tincidunt sedtellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non</span>
+                    </li>
+                    <li>
+                        <br>
+                        <span>Lorem ipsum dipsTitle description non congue ullamsto condimentum, porta lectus vitae, ultricies congue gravida diam nonum</span>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+
+            <div class="w3-white w3-margin">
+                <div class="w3-container w3-padding w3-black">
+                    <h4>Friend Feed</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    <li>
+                        <br>
+                        <span>Sed mattis nunc Title description non congue ullam corper. Praesent tincidunt sedtellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non</span>
+                    </li>
+                    <li>
+                        <br>
+                        <span>Praes tinci pent tincidunt sedtellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non</span>
+                    </li>
+                    <li>
+                        <br>
+                        <span>Lorem ipsum dipsTitle description non congue ullamsto condimentum, porta lectus vitae, ultricies congue gravida diam nonum</span>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+            <div class="w3-white w3-margin">
+                <div class="w3-container w3-padding w3-black">
+                    <h4>Your Feed</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    <li>
+                        <br>
+                        <span>Sed mattis nunc Title description non congue ullam corper. Praesent tincidunt sedtellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non</span>
+                    </li>
+                    <li>
+                        <br>
+                        <span>Praes tinci pent tincidunt sedtellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non</span>
+                    </li>
+                    <li>
+                        <br>
+                        <span>Lorem ipsum dipsTitle description non congue ullamsto condimentum, porta lectus vitae, ultricies congue gravida diam nonum</span>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+
+
+
+            <!-- END About/Intro Menu -->
+        </div>
+    </div>
+
+    <!-- END w3-content -->
+</div>
+<div>
+    <ul class="nav nav-pills w3-margin" role="tablist" style=" letter-spacing: 2px;">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#home">All Feed</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#menu1">Friend Feed</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#menu2"> Your Feed</a>
+        </li>
+
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div id="home" class="tab-pane active">
+            <br>
+            @foreach (var question in Model.StatusCategory)
+            {
+                <div class="w3-container w3-deep-orange  w3-margin w3-padding-large mt-50 OpenStatus">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <a style="text-decoration: none; color: #302b2b" class="question">
+                                <h4> @question.StatusCategoryTitle</h4>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <hr />
+
+                @if (question.Status.Any())
+                {
+                    @foreach (var q in question.Status)
+                    {
+                        <div class="w3-container w3-white w3-margin w3-padding-large OpenStatus">
+                            <a style="text-decoration: none;color:#302b2b" asp-controller="Question"
+                               asp-action="Index" asp-route-id="@q.StatusId" class="question">
+                                <h4> @q.StatusTitle</h4>
+                            </a>
+                            <div class="w3-justify">
+
+                                <p class="w3-left">
+                                    <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
+                                        <b>
+
+                                        </b>
+                                    </button>
+                                </p>
+
+                                <a class="w3-button w3-right w3-opacity w3-Bpad  w3-white w3-border">
+                                    <b>
+                                        <i class="fa fa-history" style="font-size:15px;"></i>&nbsp
+                                        @q.StatusCreated
+                                    </b>
+                                </a>
+
+                                <p class="w3-clear"></p>
+
+                            </div>
+
+                        </div>
+                        <hr>
+                    }
+                }
+                else
+                {
+                    <div class="noPosts">
+                        <h3>
+                            No posts found. Why not
+                            <a asp-controller="Question" asp-action="Create" asp-route-id="@question.StatusCategoryId">
+                                <span>Ask</span>
+                            </a>
+                            Something?
+                        </h3>
+                    </div>
+                }
+            }
 
         </div>
-        <hr>
-    }
-  
+        <div id="menu1" class="tab-pane fade">
+            <br>
+
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <br>
+
+        </div>
+        <div id="menu3" class="tab-pane fade">
+            <br>
+
+        </div>
+    </div>
+</div>
+
 
 @section Scripts{
     <script>
         function clearThis(target) {
             target.value = "";
-        }</script>
+        }
+    </script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        function SetDept() {
+            $("#StatusCategoryTitle").val($("#ddlDept option:selected").text());
+        }
+    </script>
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+                  $(function () {
+                 $("#divData").empty().html('@ViewBag.Message');
+                  });
+        </script>
+    }
 }

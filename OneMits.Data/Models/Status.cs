@@ -13,6 +13,6 @@ namespace OneMits.Data.Models
         public DateTime StatusCreated { get; set; }
         public int NumberViews { get; set; }
         public virtual ApplicationUser User { get; set; }
-
+        public virtual StatusCategory StatusCategory { get; set; }
     }
 }
