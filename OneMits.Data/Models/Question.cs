@@ -16,5 +16,6 @@ namespace OneMits.Data.Models
         
         public virtual IEnumerable<Answer> Answers { get; set; }
         public virtual IEnumerable<LikeQuestion> LikeQuestions { get; set; }
+        public int ReportCount { get; set; }
     }
 }

@@ -36,5 +36,8 @@ namespace OneMits.Models.Question
         public string CategoryImageUrl { get; set; }
 
         public IEnumerable<AnswerModel> Answers { get; set; }
+        public int ReportCountQuestion { get; set;}
+        public bool Block { get; set; }
+        
     }
 }

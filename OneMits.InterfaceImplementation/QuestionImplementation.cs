@@ -137,6 +137,42 @@ namespace OneMits.InterfaceImplementation
             return _context.Answers;
         }
 
+        public async Task AddReportQuestion(ReportQuestion reportQuestion)
+        {
+            _context.ReportQuestion.Add(reportQuestion);
+            await _context.SaveChangesAsync();
+        }
+        public async Task AddReportAnswer(ReportAnswer reportAnswer)
+        {
+            _context.ReportAnswer.Add(reportAnswer);
+            await _context.SaveChangesAsync();
+        }
+        public async Task AddReportCount(Question question)
+        {
+            question.ReportCount += 1;
+            await _context.SaveChangesAsync();
+        }
+        public async Task AddReportCountAnswer(Answer answer)
+        {
+            answer.ReportCount += 1;
+            await _context.SaveChangesAsync();
+        }
+        public ReportQuestion GetAllReportByQuestion(ReportQuestion reportQuestion)
+        {
+            return _context.ReportQuestion.Where(report => report.User == reportQuestion.User && report.Question == reportQuestion.Question)
+                .Include(report => report.Question)
+                .Include(report => report.User)
+                .FirstOrDefault();
+        }
+
+        public ReportAnswer GetAllReportByAnswer(ReportAnswer reportAnswer)
+        {
+            return _context.ReportAnswer.Where(report => report.User == reportAnswer.User && report.Answer == reportAnswer.Answer)
+                .Include(report => report.Answer)
+                .Include(report => report.User)
+                .FirstOrDefault();
+        }
+
         
     }
 }

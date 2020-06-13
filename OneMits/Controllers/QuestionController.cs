@@ -35,7 +35,19 @@ namespace OneMits.Controllers
             _questionImplementation.AddView(id).Wait();
             var question = _questionImplementation.GetById(id);
             var answers = Buildanswers(question.Answers);
-            
+            bool report = false;
+            var userId = _userManager.GetUserId(User);
+            var user = _userManager.FindByIdAsync(userId).Result;
+            var reportModel = new ReportQuestion
+            {
+                User = user,
+                Question = question
+            };
+            var temp = _questionImplementation.GetAllReportByQuestion(reportModel);
+            if (temp !=null)
+            {
+                report = true;
+            }
             var model = new QuestionIndexModel
             {
                 QuestionId = question.QuestionId,
@@ -52,8 +64,9 @@ namespace OneMits.Controllers
                 CategoryTitle = question.Category.CategoryTitle,
                 IsAuthorAdmin = IsAuthorAdmin(question.User),
                 LikeCount = question.LikeQuestions.Count(),
-                NumberView = question.NumberViews
-
+                NumberView = question.NumberViews,
+                ReportCountQuestion = question.ReportCount,
+                Block = report
             };
 
             return View(model);
@@ -61,6 +74,22 @@ namespace OneMits.Controllers
 
         private IEnumerable<AnswerModel> Buildanswers(IEnumerable<Answer> answers)
         {
+            bool report = false;
+            var userId = _userManager.GetUserId(User);
+            var user = _userManager.FindByIdAsync(userId).Result;
+            foreach (var tmp in answers)
+            {           
+                var reportModel = new ReportAnswer
+                {
+                    User = user,
+                    Answer = tmp
+                };
+                var temp = _questionImplementation.GetAllReportByAnswer(reportModel);
+                if (temp != null)
+                {
+                    report = true;
+                }
+            }        
             return answers.Select(answer => new AnswerModel
             {
                 AnswerId = answer.AnswerId,
@@ -71,8 +100,8 @@ namespace OneMits.Controllers
                 AnswerCreated = answer.AnswerCreated,
                 AnswerContent = answer.AnswerContent,
                 IsAuthorAdmin = IsAuthorAdmin(answer.User),
-                
-
+                ReportCountAnswer = answer.ReportCount,
+                Block = report
             });
 
         }
@@ -223,6 +252,35 @@ namespace OneMits.Controllers
             var QuestionId = answer.Question.QuestionId;
             await _questionImplementation.DeleteAnswer(id);
             return RedirectToAction("Index", "Question", new { id = QuestionId });
+        }
+        public async Task<IActionResult> ReportQuestion(int id)
+        {
+            var question = _questionImplementation.GetById(id);
+            
+            var userId = _userManager.GetUserId(User);
+            var user = _userManager.FindByIdAsync(userId).Result;
+            var report = new ReportQuestion
+            {
+                User = user,
+                Question = question
+            };
+            await _questionImplementation.AddReportQuestion(report);
+            await _questionImplementation.AddReportCount(question);
+            return RedirectToAction("Index", "Question", new { id });
+        }
+        public async Task<IActionResult> ReportAnswer(int id)
+        {
+            var answer = _questionImplementation.GetAnswerById(id);
+            var userId = _userManager.GetUserId(User);
+            var user = _userManager.FindByIdAsync(userId).Result;
+            var report = new ReportAnswer
+            {
+                User = user,
+                Answer = answer
+            };
+            await _questionImplementation.AddReportAnswer(report);
+            await _questionImplementation.AddReportCountAnswer(answer);
+            return RedirectToAction("Index", "Question", new { id });
         }
     }
 }

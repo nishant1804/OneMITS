@@ -22,5 +22,7 @@ namespace OneMits.Models.Answer
         public string CategoryTitle { get; set; }
         public string CategoryImageUrl { get; set; }
         public int CategoryId { get; set; }
+        public int ReportCountAnswer { get; set; }
+        public bool Block { get; set; }
     }
 }
