@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OneMits.Data;
 
 namespace OneMits.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200609160447_tstmig10")]
+    partial class tstmig10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,17 +257,13 @@ namespace OneMits.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ReceiverId");
+                    b.Property<string>("Receiver");
 
-                    b.Property<string>("SenderId");
+                    b.Property<string>("Sender");
 
                     b.Property<string>("Status");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
 
                     b.ToTable("ConnectingList");
                 });
@@ -327,35 +325,6 @@ namespace OneMits.Data.Migrations
                     b.ToTable("LoginTime");
                 });
 
-            modelBuilder.Entity("OneMits.Data.Models.Notification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Action");
-
-                    b.Property<string>("ActionId");
-
-                    b.Property<string>("Controller");
-
-                    b.Property<DateTime>("DateTime");
-
-                    b.Property<string>("UserFromId");
-
-                    b.Property<string>("UserToId");
-
-                    b.Property<string>("notification");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserFromId");
-
-                    b.HasIndex("UserToId");
-
-                    b.ToTable("Notification");
-                });
-
             modelBuilder.Entity("OneMits.Data.Models.OtpTable", b =>
                 {
                     b.Property<string>("EnrollmentNumber")
@@ -395,44 +364,6 @@ namespace OneMits.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Questions");
-                });
-
-            modelBuilder.Entity("OneMits.Data.Models.Status", b =>
-                {
-                    b.Property<int>("StatusId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("NumberViews");
-
-                    b.Property<int?>("StatusCategoryId");
-
-                    b.Property<DateTime>("StatusCreated");
-
-                    b.Property<string>("StatusTitle");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("StatusId");
-
-                    b.HasIndex("StatusCategoryId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Status");
-                });
-
-            modelBuilder.Entity("OneMits.Data.Models.StatusCategoryListingModel", b =>
-                {
-                    b.Property<int>("StatusCategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("StatusCategoryTitle");
-
-                    b.HasKey("StatusCategoryId");
-
-                    b.ToTable("StatusCategories");
                 });
 
             modelBuilder.Entity("OneMits.Data.Models.TeacherTable", b =>
@@ -520,17 +451,6 @@ namespace OneMits.Data.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("OneMits.Data.Models.ConnectingList", b =>
-                {
-                    b.HasOne("OneMits.Data.Models.ApplicationUser", "Receiver")
-                        .WithMany()
-                        .HasForeignKey("ReceiverId");
-
-                    b.HasOne("OneMits.Data.Models.ApplicationUser", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId");
-                });
-
             modelBuilder.Entity("OneMits.Data.Models.LikeAnswer", b =>
                 {
                     b.HasOne("OneMits.Data.Models.Answer", "Answer")
@@ -553,33 +473,11 @@ namespace OneMits.Data.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("OneMits.Data.Models.Notification", b =>
-                {
-                    b.HasOne("OneMits.Data.Models.ApplicationUser", "UserFrom")
-                        .WithMany()
-                        .HasForeignKey("UserFromId");
-
-                    b.HasOne("OneMits.Data.Models.ApplicationUser", "UserTo")
-                        .WithMany()
-                        .HasForeignKey("UserToId");
-                });
-
             modelBuilder.Entity("OneMits.Data.Models.Question", b =>
                 {
                     b.HasOne("OneMits.Data.Models.Category", "Category")
                         .WithMany("Questions")
                         .HasForeignKey("CategoryId");
-
-                    b.HasOne("OneMits.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("OneMits.Data.Models.Status", b =>
-                {
-                    b.HasOne("OneMits.Data.Models.StatusCategoryListingModel", "StatusCategory")
-                        .WithMany("Status")
-                        .HasForeignKey("StatusCategoryId");
 
                     b.HasOne("OneMits.Data.Models.ApplicationUser", "User")
                         .WithMany()

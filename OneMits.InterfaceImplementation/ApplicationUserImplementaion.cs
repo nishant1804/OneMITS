@@ -23,43 +23,170 @@ namespace OneMits.InterfaceImplementation
         }
         public IEnumerable<ConnectingList> GetAllRequest()
         {
-            return _context.ConnectingList;
-        }
+            return _context.ConnectingList
 
+                   .Include(request => request.Sender)
+                   .Include(request => request.Receiver);
+                  
+        }
+        public IEnumerable<ConnectedList> GetAllConnectedRequest()
+        {
+            return _context.ConnectedList
+                   .Include(request => request.Id)
+                   .Include(request => request.User1)
+                   .Include(request => request.User2);
+        }
+        
+        
         public ApplicationUser GetById(string id)
         {
             return GetAll().FirstOrDefault(user => user.Id == id);
         }
         public string GetByRequestId(ConnectingList connectingList)
         {
-            var temp1 = new ConnectingList {
-                User1 = "1",
-                User2 = "2"
-            };
-            var tmp1 = new ConnectingList
-            {
-                User1 = "1",
-                User2 = "2"
-            };
-            var temp = GetAllRequest().Where(user1 => user1.User1 == connectingList.User1);
-            temp1 = temp.FirstOrDefault(user2 => user2.User2 == connectingList.User2);
-            var tmp = GetAllRequest().Where(user1 => user1.User1 == connectingList.User2);
-            tmp1 = tmp.FirstOrDefault(user2 => user2.User2 == connectingList.User1);
+
+            var temp1 = GetRequest(connectingList);
+            var xtmp = connectingList.Receiver;
+            connectingList.Receiver = connectingList.Sender;
+            connectingList.Sender = xtmp;
+            var tmp1 = GetRequest(connectingList);
             if (temp1 == null && tmp1 == null)
             {
                 return "connect";
             }
-            if (temp1 != null && tmp1 == null)
+            if (temp1 != null)
             {
-                return "requestsent";
+                if (temp1.Status == "friends") {
+                    return "connected";
+                }
             }
-            if (temp1 == null && tmp1 != null)
+            if (tmp1 != null)
             {
-                return "accept";
+                if (tmp1.Status == "friends")
+                {
+                    return "connected";
+                }
             }
+            if (temp1 != null)
+            {
+                if (temp1.Status == "pending")
+                {
+                    return "sent";
+                }
+            }
+            if (tmp1 != null)
+            {
+                if (tmp1.Status == "pending")
+                {
+                    return "received";
+                }
+            }
+            
+            
             return ".";
         }
+        public async Task UnFriend(ConnectingList connectingList)
+        {
+            var temp1 = GetConnected(connectingList);
+            var xtmp = connectingList.Receiver;
+            connectingList.Receiver = connectingList.Sender;
+            connectingList.Sender = xtmp;
+            var tmp1 = GetConnected(connectingList);
+            if(temp1 != null)
+            {
+                temp1.Status = "cancel";
+                await _context.SaveChangesAsync();
+            }
+            if(tmp1 != null)
+            {
+                tmp1.Status = "cancel";
+                await _context.SaveChangesAsync();
+            }
+        }
+      
+        public async Task DeleteRequest(ConnectingList connectingList)
+        {
+            var temp1 = GetPending(connectingList);
+            temp1.Status = "cancel";
+            await _context.SaveChangesAsync();
+        }
+        public async Task DenyRequest(ConnectingList connectingList)
+        {
+            
+            var temp1 = GetPending(connectingList);
+            temp1.Status = "cancel";
+            
+            await _context.SaveChangesAsync();
+        }
+        public async Task AcceptRequest(ConnectingList connectingList)
+        {
+            
+            var temp1 = GetPending(connectingList);
+            temp1.Status = "friends"; 
+            await _context.SaveChangesAsync();
+        }
+        public IEnumerable<Notification> GetNotifications(ApplicationUser applicationUser)
+        {
+            return _context.Notification.Where(userto => userto.UserTo == applicationUser)
+                                        .OrderByDescending(date => date.DateTime)
+                                        .Include(user => user.UserFrom)
+                                        .Include(user => user.UserFrom);
+        }
+        public ConnectingList GetAccept(ConnectingList connectingList)
+        {
+            return _context.ConnectingList.Where(user1 => user1.Sender == connectingList.Sender && user1.Receiver == connectingList.Receiver && user1.Status == "pending")
+                  .Include(request => request.Sender)
+                   .Include(request => request.Receiver)
+                   .FirstOrDefault();
+        }
+        public ConnectingList GetPending(ConnectingList connectingList)
+        {
+            return _context.ConnectingList.Where(user1 => user1.Sender == connectingList.Sender && user1.Receiver == connectingList.Receiver && user1.Status == "pending")
+               .Include(request => request.Sender)
+                   .Include(request => request.Receiver)
+                   .FirstOrDefault();
+        }
+        public ConnectingList GetConnected(ConnectingList connectingList)
+        {
+            return _context.ConnectingList.Where(user1 => user1.Sender == connectingList.Sender && user1.Receiver == connectingList.Receiver && user1.Status == "friends")
+                   .Include(request => request.Sender)
+                   .Include(request => request.Receiver)
+                   .FirstOrDefault();
+        }
+        public ConnectingList GetRequest(ConnectingList connectingList)
+        {
+            return _context.ConnectingList.Where(user1 => user1.Sender == connectingList.Sender && user1.Receiver == connectingList.Receiver && user1.Status != "cancel")
+                   .Include(request => request.Sender)
+                   .Include(request => request.Receiver)
+                   .FirstOrDefault();
+        }
+        public string GetByAcceptId(ConnectedList connectedList)
+        {
+            var temp1 = GetConnectedRequest(connectedList);
+            var xtmp = connectedList.User2;
+            connectedList.User2 = connectedList.User1;
+            connectedList.User1 = xtmp;
+            var tmp1 = GetConnectedRequest(connectedList);
+            if (temp1 == null && tmp1 == null)
+            {
+                return "connect";
+            }
+            if (temp1 != null || tmp1 !=null)
+            {
+                return "friends";
+            }
 
+            return ".";
+
+        }
+        public ConnectedList GetConnectedRequest(ConnectedList connectingList)
+        {
+            return _context.ConnectedList.Where(user1 => user1.User1 == connectingList.User1 && user1.User2 == connectingList.User2)
+                   .Include(request => request.Id)
+                   .Include(request => request.User1)
+                   .Include(request => request.User2)
+                   .First();
+        }
         public async Task UpdateUserRating(string userId, Type type)
         {
             var user = GetById(userId);
@@ -151,21 +278,22 @@ namespace OneMits.InterfaceImplementation
 
         public async Task SendRequest(ConnectingList connectModel)
         {
-            _context.ConnectingList.Add(connectModel);
+            var temp = new ConnectingList
+            {
+                Sender = connectModel.Sender,
+                Receiver = connectModel.Receiver,
+                Status = "pending"
+            };
+            _context.ConnectingList.Add(temp);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteRequest(ConnectingList connectModel)
+        public async Task AddNotification(Notification notification)
         {
-            _context.ConnectingList.RemoveRange(connectModel);
-            _context.ConnectingList.Remove(connectModel);
+            _context.Notification.Add(notification);
             await _context.SaveChangesAsync();
         }
 
-        public async Task AcceptRequest(ConnectedList connectModel)
-        {
-            _context.ConnectedList.Add(connectModel);
-            await _context.SaveChangesAsync();
-        }
+        
     }
 }

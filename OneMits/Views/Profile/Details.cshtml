@@ -2,107 +2,162 @@
 @model OneMits.Models.ApplicationUser.ProfileModel
 @inject UserManager<OneMits.Data.Models.ApplicationUser> profileManager
 
-<div class="w3-container w3-white w3-margin w3-padding-large Openquestion">
-    <div class="so">
-        <div class="row">
-            <div class="col-md-2">
-                <div class="image-cropper" id="userProfileImage" style="background-image:url(@Model.ProfileImageUrl)">
+    
+
+
+
+    
+    <div class="w3-container w3-white w3-margin w3-padding-large Openquestion">
+        <div class="so">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="image-cropper" id="userProfileImage" style="background-image:url(@Model.ProfileImageUrl)">
+                    </div>
+                    @if (User.Identity.Name == Model.UserName)
+                    {
+                        <form method="post" enctype="multipart/form-data" asp-controller="Profile" asp-action="UploadProfileImage">
+                            <div id="upload">
+                                <label class="btn btn-default btn-file">
+                                    Browse <input type="file" name="file" style="display:none" />
+                                </label>
+                            </div>
+                            <button type="submit" id="btn-profile" class="btn btn-default">
+                                Submit
+                            </button>
+                        </form>
+                    }
                 </div>
-                @if (User.Identity.Name == Model.UserName)
-                {
-                    <form method="post" enctype="multipart/form-data" asp-controller="Profile" asp-action="UploadProfileImage">
-                        <div id="upload">
-                            <label class="btn btn-default btn-file">
-                                Browse <input type="file" name="file" style="display:none" />
-                            </label>
-                        </div>
-                        <button type="submit" id="btn-profile" class="btn btn-default">
-                            Submit
-                        </button>
-                    </form>
-                }
-            </div>
-            <div class="col-md-3">
-                <p class="pro-name">@Model.UserName</p>
-                @if (@Model.IsAdmin)
+                <div class="col-md-3">
+                    <p class="pro-name">@Model.UserName</p>
+                    @if (@Model.IsAdmin)
 
-                {
-                    <span class="isAdmin">Admin</span>
-                }
-                <p class="pro-inf">Information Technology</p>
-                <p class="pro-inf">Current Rating : &nbsp @Model.UserRating</p>
-                <p class="pro-inf">Email : &nbsp @Model.Email</p>
-                <p class="pro-inf">Member Since : &nbsp @Model.MemberSince</p>
-                <a style="color:#484141" class="cd-signup" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                    <i class="fa fa-cog " style="font-size:25px;"></i>
-                </a><br>
-                @if (Model.UserId != Model.OpenUserId)
-                {
-                    if (Model.RequestOption == "connect")
                     {
-                        <div class="col-md-2">
-                            <p class="w3-left">
-                                <a asp-controller="Profile" asp-action="SendRequest" asp-route-id="@Model.UserId">
-                                    <button class="w3-button w3-Bpad  w3-white w3-border">
-                                        <b>
-                                            <i class="fa fa-eye"></i> Connect
-                                        </b>
-                                    </button>
-                                </a>
-
-                            </p>
-                        </div>
+                        <span class="isAdmin">Admin</span>
                     }
-                    if (Model.RequestOption == "requestsent")
+                    <p class="pro-inf">Information Technology</p>
+                    <p class="pro-inf">Current Rating : &nbsp @Model.UserRating</p>
+                    <p class="pro-inf">Email : &nbsp @Model.Email</p>
+                    <p class="pro-inf">Member Since : &nbsp @Model.MemberSince</p>
+                    <a style="color:#484141" class="cd-signup" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                        <i class="fa fa-cog " style="font-size:25px;"></i>
+                    </a><br>
+                    @if (Model.UserId != Model.OpenUserId)
                     {
-                        <div class="col-md-2">
-                            <p class="w3-left">
-                                <a asp-controller="Profile" asp-action="CancelRequest" asp-route-id="@Model.UserId">
-                                    <button class="w3-button w3-Bpad  w3-white w3-border">
-                                        <b>
-                                            <i class="fa fa-eye"></i> Cancel Request
-                                        </b>
-                                    </button>
-                                </a>
+                        if (Model.RequestOption == "connected")
+                        {
+                            <div class="col-md-2">
+                                <p class="w3-left">
+                                    You are connected.Do you want to
+                                    <a asp-controller="Profile" asp-action="UnFriend" asp-route-id="@Model.UserId">
+                                        <button class="w3-button w3-Bpad  w3-white w3-border">
+                                            <b>
+                                                <i class="fa fa-eye"></i> Disconnect
+                                            </b>
+                                        </button>
+                                    </a>
+                                    this id.
+                                </p>
+                            </div>
+                        }
+                        if (Model.RequestOption == "connect")
+                        {
+                            <div class="col-md-2">
+                                <p class="w3-left">
+                                    <a asp-controller="Profile" asp-action="SendRequest" asp-route-id="@Model.UserId">
+                                        <button class="w3-button w3-Bpad  w3-white w3-border">
+                                            <b>
+                                                <i class="fa fa-eye"></i> Connect +
+                                            </b>
+                                        </button>
+                                    </a>
 
-                            </p>
-                        </div>
+                                </p>
+                            </div>
+                        }
+                        if (Model.RequestOption == "sent")
+                        {
+                            <div class="col-md-2">
+                                <p class="w3-left">
+                                    Request sent. Do you want to
+                                    <a asp-controller="Profile" asp-action="CancelRequest" asp-route-id="@Model.UserId">
+                                        <button class="w3-button w3-Bpad  w3-white w3-border">
+                                            <b>
+                                                <i class="fa fa-eye"></i> Cancel Request
+                                            </b>
+                                        </button>
+                                    </a>
+
+                                </p>
+                            </div>
+                        }
+                        if (Model.RequestOption == "received")
+                        {
+                            <div class="col-md-2">
+                                <p class="w3-left">
+                                    <a asp-controller="Profile" asp-action="AcceptRequest" asp-route-id="@Model.UserId">
+                                        <button class="w3-button w3-Bpad  w3-white w3-border">
+                                            <b>
+                                                <i class="fa fa-eye"></i> Accept Request
+                                            </b>
+                                        </button>
+                                    </a>
+
+                                </p>
+                                <p class="w3-left">
+                                    <a asp-controller="Profile" asp-action="DenyRequest" asp-route-id="@Model.UserId">
+                                        <button class="w3-button w3-Bpad  w3-white w3-border">
+                                            <b>
+                                                <i class="fa fa-eye"></i> Deny Request
+                                            </b>
+                                        </button>
+                                    </a>
+
+                                </p>
+                            </div>
+                        }
+
                     }
-                    if (Model.RequestOption == "accept")
-                    {
-            <div class="col-md-2">
-                <p class="w3-left">
-                    <a asp-controller="Profile" asp-action="AcceptRequest" asp-route-id="@Model.UserId">
-                        <button class="w3-button w3-Bpad  w3-white w3-border">
-                            <b>
-                                <i class="fa fa-eye"></i> Accept Request
-                            </b>
-                        </button>
-                    </a>
+                </div>
+                <div class="col-md-5">
 
-                </p>
-                <p class="w3-left">
-                    <a asp-controller="Profile" asp-action="DenyRequest" asp-route-id="@Model.UserId">
-                        <button class="w3-button w3-Bpad  w3-white w3-border">
-                            <b>
-                                <i class="fa fa-eye"></i> Deny Request
-                            </b>
-                        </button>
-                    </a>
-
-                </p>
-            </div>
-                    }
-
-                }
-            </div>
-            <div class="col-md-5">
-
+                </div>
             </div>
         </div>
     </div>
-</div>
-<br>
+    <br>
+    
+        @if (User.Identity.Name == Model.UserName)
+        {
+            @if (Model.notifications.Any())
+            {<br>
+                @foreach (var not in Model.notifications)
+                {<div class="col-md-2">
+                    <br>
+                    <div class="w3-left"> @not.UserFrom</div>
+                    <p class="w3-left">
+                        has
+                    </p>
+                    <div class="w3-left"> @not.notification.</div>
+                    <p class="w3-left">
+                        <a asp-controller="@not.Controller" asp-action="@not.Action" asp-route-id="@not.ActionId">Click here to know more</a>
+                    </p>
+                    <br>
+    </div>
+                }
+                <br>
+            }
+            else
+            {
+                <p class="w3-left">
+                    has no notifications
+                </p>
+            }
+
+        
+
+        }
+            
+
 
 
 

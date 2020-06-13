@@ -10,21 +10,26 @@ namespace OneMits.Data
     {
         ApplicationUser GetById(string id);
         string GetByRequestId(ConnectingList connectingList);
+        string GetByAcceptId(ConnectedList connectingList);
         ApplicationUser GetByUserName(string userName);
         IEnumerable<ApplicationUser> GetSearchUserName(string userName);
         IEnumerable<ApplicationUser> GetAll();
         IEnumerable<ConnectingList> GetAllRequest();
+        IEnumerable<Notification> GetNotifications(ApplicationUser applicationUser);
         OtpTable GetByEnrollment(string EnrollmentNumber);
         TeacherTable GetByTeacherEnrollment(string EnrollmentNumber);
         IEnumerable<OtpTable> GetAllStudents();
 
         Task UpdateUserRating(string id, Type type);
         Task SendRequest(ConnectingList connectModel);
-        Task AcceptRequest(ConnectedList connectModel);
+        Task UnFriend(ConnectingList connectingList);
+        Task AcceptRequest(ConnectingList connectModel);
         Task DeleteRequest(ConnectingList connectModel);
+        Task DenyRequest(ConnectingList connectModel);
         Task AddLoginTime(LoginTime loginTime);
         Task AddVisit(Visits visits);
         Task Delete(string id);
         Task UnDelete(string id);
+        Task AddNotification(Notification notification);
     }
 }
