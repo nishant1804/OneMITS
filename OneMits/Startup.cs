@@ -46,6 +46,7 @@ namespace OneMits
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<ICategory, CategoryImplementation>();
             services.AddScoped<IQuestion, QuestionImplementation>();
+            services.AddScoped<IStatus, StatusImplementation>();
             services.AddScoped<IApplicationUser, ApplicationUserImplementation>();
             services.AddTransient<AdminRoleCreation>();
             services.AddTransient<AddVisit>();
