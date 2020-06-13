@@ -1,178 +1,211 @@
 ﻿@model OneMits.Models.Question.QuestionIndexModel
 
 
-        
-    <div class="mb-45">
-        <span class="QTitle" >
-            Post
-        </span>
-        <span class="w3-button w3-border backButton">
-            <form asp-controller="Category" asp-action="Topic" asp-route-id="@Model.CategoryId">
-                Back
-            </form>
-        </span>
-    </div>
-   
 
-    <!-- Blog entry -->
-<div class="w3-container w3-white w3-margin w3-padding-large Openquestion">
-    <div class="row">
-        <a style="text-decoration: none; color: #302b2b" class="question">
-            <h4> @Model.QuestionTitle</h4>
-        </a>
-        @if (User.Identity.Name == Model.AuthorName || User.IsInRole("Admin"))
-        {
-            <a class="MA w3-button w3-right"  asp-controller="Question" asp-action="Delete" asp-route-id="@Model.QuestionId">
-                <i class="fa fa-trash" style="font-size:20px; color : red"></i>
-            </a>
-        }
-    </div>
-    
-    <div class="w3-row w3-margin-bottom" id="demo1">
-        <div class="w3-col l10 m9 ">
-            <h5>
-                <span>
-                    By : <span class="w3-opacity w3-medium">
-                        <a asp-controller="Profile" asp-action="Details" asp-route-id="@Model.AuthorId" class="By_color">
-                            @Model.AuthorName
-                        </a>
-                    </span>
-                </span>
-                <span class="w3-right">
-                    Category : <span class="w3-opacity  w3-medium">
-                        <a asp-controller="Category" asp-action="Topic" asp-route-id="@Model.CategoryId" class="By_color">
-                            @Model.CategoryTitle
-                        </a>
-                    </span>
-                </span>
-            </h5>
-
-        </div>
-    </div>
-
-    <div class="w3-justify">
-        <p>
-            @Html.Raw(Model.QuestionContent)
-        </p>
-        <p class="w3-left">
-            <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
-                <b>
-                    <i class="fa fa-eye"></i> @Model.NumberView
-                </b>
-            </button>
-        </p>
-        <p class="w3-left">
-            <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
-                <b>
-                    <i class="fa fa-comment" style=" color: #df3d3d"></i>
-                    @if (Model.AnswerCount == 0)
-                    {
-                        <span>No Replies</span>
-                    }
-                    else
-                    {
-                        <span>@Model.AnswerCount Replies</span>
-                    }
-                </b>
-            </button>
-        </p>
-        <a class="w3-button w3-right w3-opacity w3-Bpad  w3-white w3-border">
-            <b>
-                <i class="fa fa-history" style="font-size:15px;"></i>&nbsp
-                @Model.QuestionCreated
-            </b>
-        </a>
-
-        <p class="w3-clear"></p>
-
-    </div>
-
+<div class="mb-45">
+    <span class="QTitle">
+        Post
+    </span>
+    <span class="w3-button w3-border backButton">
+        <form asp-controller="Category" asp-action="Topic" asp-route-id="@Model.CategoryId">
+            Back to @Model.CategoryTitle
+        </form>
+    </span>
 </div>
-  
-}
 
-
-@if (Model.Answers.Any())
+@if (@Model.Block == true || @Model.ReportCountQuestion >= 20)
 {
-<div class="QTitle">
-    <h3>
-        Replies.....
-    </h3>
-</div>
+    <div>
+        You have Reported this Question
+    </div>
+}
+else
+{
+    <!-- Blog entry -->
+    <div class="w3-container w3-white w3-margin w3-padding-large Openquestion">
+        <div class="row">
+            <a style="text-decoration: none; color: #302b2b" class="question">
+                <h4> @Model.QuestionTitle</h4>
+            </a>
+            @if (User.Identity.Name == Model.AuthorName || User.IsInRole("Admin"))
+            {
+                <a class="MA w3-button w3-right" asp-controller="Question" asp-action="Delete" asp-route-id="@Model.QuestionId">
+                    <i class="fa fa-trash" style="font-size:20px; color : red"></i>
+                </a>
+            }
+        </div>
 
-    foreach (var reply in Model.Answers)
-    {
-        <div id="tab1" class="w-container  city">
-            <div class="reply-cont">
-                <br>
-
-                <div class="reply-text">
-                    <p>
-                        @reply.AnswerContent
-                    </p>
-                    <span class="w3-button">
-                        @if (User.Identity.Name == reply.AuthorName || User.IsInRole("Admin"))
-                        {
-                            <a asp-controller="Question" asp-action="DeleteAnswer" asp-route-id="@reply.AnswerId">
-                                <i class="fa fa-trash" style="font-size:20px;"></i>
-                            </a>
-                        }
-                    </span>
-                </div>
-                
+        <div class="w3-row w3-margin-bottom" id="demo1">
+            <div class="w3-col l10 m9 ">
                 <h5>
-                    By : <span class="w3-opacity w3-medium">
-                        <a asp-controller="Profile" asp-action="Details" asp-route-id="@reply.AuthorId" class="By_color">
-                            @reply.AuthorName
-                        </a>
+                    <span>
+                        By : <span class="w3-opacity w3-medium">
+                            <a asp-controller="Profile" asp-action="Details" asp-route-id="@Model.AuthorId" class="By_color">
+                                @Model.AuthorName
+                            </a>
+                        </span>
                     </span>
-                    
                     <span class="w3-right">
-                        <a class="time-style"><i class="fa fa-history" style="font-size:15px;"></i>&nbsp  @Model.QuestionCreated</a>
-                    </span>
+                        Category : <span class="w3-opacity  w3-medium">
+                            <a asp-controller="Category" asp-action="Topic" asp-route-id="@Model.CategoryId" class="By_color">
+                                @Model.CategoryTitle
+                            </a>
+                        </span>
+                        <span class="w3-right">
+                            <span class="w3-opacity  w3-medium">
+                                <a asp-controller="Question" asp-action="ReportQuestion" asp-route-id="@Model.QuestionId" class="By_color">
+                                    REPORT Question
+                                </a>
+                            </span>
+                        </span>
                 </h5>
 
             </div>
         </div>
+
+        <div class="w3-justify">
+            <p>
+                @Html.Raw(Model.QuestionContent)
+            </p>
+            <p class="w3-left">
+                <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
+                    <b>
+                        <i class="fa fa-eye"></i> @Model.NumberView
+                    </b>
+                </button>
+            </p>
+            <p class="w3-left">
+                <button class="w3-button w3-Bpad  w3-white w3-border" onclick="likeFunction(this)">
+                    <b>
+                        <i class="fa fa-comment" style=" color: #df3d3d"></i>
+                        @if (Model.AnswerCount == 0)
+                        {
+                            <span>No Replies</span>
+                        }
+                        else
+                        {
+                            <span>@Model.AnswerCount Replies</span>
+                        }
+                    </b>
+                </button>
+            </p>
+            <a class="w3-button w3-right w3-opacity w3-Bpad  w3-white w3-border">
+                <b>
+                    <i class="fa fa-history" style="font-size:15px;"></i>&nbsp
+                    @Model.QuestionCreated
+                </b>
+            </a>
+
+            <p class="w3-clear"></p>
+
+        </div>
+
+    </div>
+    @if (Model.Answers.Any())
+    {
+        <div class="QTitle">
+            <h3>
+                Replies.....
+            </h3>
+        </div>
+
+        foreach (var reply in Model.Answers)
+        {
+            if (reply.Block == true || reply.ReportCountAnswer >= 20)
+            {
+                <div>
+                    You have Reported this Question
+                </div>
+            }
+            else
+            {
+                <div id="tab1" class="w-container  city">
+                    <div class="reply-cont">
+                        <br>
+
+                        <div class="reply-text">
+                            <p>
+                                @reply.AnswerContent
+                            </p>
+                            <span class="w3-button">
+                                @if (User.Identity.Name == reply.AuthorName || User.IsInRole("Admin"))
+                                {
+                                    <a asp-controller="Question" asp-action="DeleteAnswer" asp-route-id="@reply.AnswerId">
+                                        <i class="fa fa-trash" style="font-size:20px;"></i>
+                                    </a>
+                                }
+                            </span>
+                        </div>
+
+                        <h5>
+                            By : <span class="w3-opacity w3-medium">
+                                <a asp-controller="Profile" asp-action="Details" asp-route-id="@reply.AuthorId" class="By_color">
+                                    @reply.AuthorName
+                                </a>
+                            </span>
+
+                            <span class="w3-right">
+                                <a class="time-style"><i class="fa fa-history" style="font-size:15px;"></i>&nbsp  @reply.AnswerCreated</a>
+                            </span>
+                            <span class="w3-right">
+                                <span class="w3-opacity  w3-medium">
+                                    <a asp-controller="Question" asp-action="ReportAnswer" asp-route-id="@reply.AnswerId" class="By_color">
+                                        REPORT Answer
+                                    </a>
+                                </span>
+                            </span>
+                        </h5>
+
+                    </div>
+                </div>
+            }
+        }
+
+
+
+
+        @*<button class="btn-re more-add" style="margin-left: 600px">More Answers</button>*@
+    }
+    else
+    {
+        <div class="QTitle">
+            <h3>
+                There are no Replies to this post.
+            </h3>
+        </div>
     }
 
 
-
-
-    @*<button class="btn-re more-add" style="margin-left: 600px">More Answers</button>*@
-}
-
-else
-{
-    <div class="QTitle">
-        <h3>
-            There are no Replies to this post.
-        </h3>
+    <div id="sectiocn1" class="w-container  city">
+        <div class="reply-cont">
+            <br>
+            <span class="reply-cont-title">
+                Add Your Reply
+            </span><br>
+            <div class="margin"> </div><br>
+            <form class="contact100-form validate-form" asp-action="AddAnswer" asp-route-id="@Model.QuestionId" method="post" id="addPostForm">
+                <div class="container-Recontact">
+                    <div class="wrap-input100 validate-input" data-validate="Message is required">
+                        <label class="label-input100" asp-for="AnswerContent">Reply</label>
+                        <textarea asp-for="AnswerContent" class="input100" placeholder="Your Review About The Question..." required></textarea>
+                        <span asp-validation-for="AnswerContent" class="focus-input100"></span>
+                    </div>
+                    <div class="w3-button w3-border">
+                        Submit
+                    </div>
+                </div>
+                <input asp-for="@Model.AuthorId" type="hidden" />
+                <input asp-for="@Model.CategoryId" type="hidden" />
+                <input asp-for="@Model.QuestionId" type="hidden" />
+            </form>
+        </div>
     </div>
 }
 
 
-<div id="sectiocn1" class="w-container  city">
-    <div class="reply-cont">
-        <br>
-        <span class="reply-cont-title">
-            Add Your Reply
-        </span><br>
-        <div class="margin"> </div><br>
-        <form class="contact100-form validate-form" asp-action="AddAnswer" asp-route-id="@Model.QuestionId" method="post" id="addPostForm">
-            <div class="container-Recontact">
-                <div class="wrap-input100 validate-input" data-validate="Message is required">
-                    <label class="label-input100" asp-for="AnswerContent">Reply</label>
-                    <textarea asp-for="AnswerContent" class="input100" placeholder="Your Review About The Question..." required></textarea>
-                    <span asp-validation-for="AnswerContent" class="focus-input100"></span>
-                </div>
-                <div class="w3-button w3-border">
-                    Submit
-                </div>
-            </div>
-            <input asp-for="@Model.AuthorId" type="hidden" />
-            <input asp-for="@Model.CategoryId" type="hidden" />
-            <input asp-for="@Model.QuestionId" type="hidden" />
-        </form>
-    </div>
-</div>
+
+
+
+
+
+

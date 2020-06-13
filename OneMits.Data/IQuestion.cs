@@ -25,8 +25,14 @@ namespace OneMits.Data
         Task DeleteAnswer(int Answerid);
         Task EditQuestionContent(int id, string newContent);
         Task AddAnswer(Answer answer);
+        Task AddReportQuestion(ReportQuestion reportQuestion);
+        Task AddReportAnswer(ReportAnswer reportAnswer);
+        Task AddReportCount(Question question);
+        Task AddReportCountAnswer(Answer answer);
         Task AddLike(LikeQuestion likeQuestion);
         Task AddAnswerLike(LikeAnswer likeAnswer);
         Task AddView(int id);
+        ReportQuestion GetAllReportByQuestion(ReportQuestion reportQuestion);
+        ReportAnswer GetAllReportByAnswer(ReportAnswer reportAnswer);
     }
 }
