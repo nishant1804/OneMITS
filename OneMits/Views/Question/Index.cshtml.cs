@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace OneMits.Views.Post
+namespace EtherealMade.Views.Post
 {
     public class IndexModel : PageModel
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace OneMits.Views.Home
+namespace EtherealMade.Views.Home
 {
     public class AboutUsModel : PageModel
     {

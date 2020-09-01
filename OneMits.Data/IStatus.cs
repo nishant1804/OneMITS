@@ -1,10 +1,10 @@
-﻿using OneMits.Data.Models;
+﻿using EtherealMade.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OneMits.Data
+namespace EtherealMade.Data
 {
     public interface IStatus
     {

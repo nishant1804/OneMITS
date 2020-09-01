@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OneMits.Data;
-using OneMits.Data.Models;
-using OneMits.InterfaceImplementation;
+using EtherealMade.Data;
+using EtherealMade.Data.Models;
+using EtherealMade.InterfaceImplementation;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Threading.Tasks;
 using System;
 
-namespace OneMits
+namespace EtherealMade
 {
     public class Startup
     {

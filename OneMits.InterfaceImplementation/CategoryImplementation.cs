@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OneMits.Data;
-using OneMits.Data.Models;
+using EtherealMade.Data;
+using EtherealMade.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OneMits.InterfaceImplementation
+namespace EtherealMade.InterfaceImplementation
 {
     public class CategoryImplementation : ICategory
     {

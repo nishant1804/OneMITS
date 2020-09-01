@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Models.Status
+namespace EtherealMade.Models.Status
 {
     public class AddStatusModel
     {

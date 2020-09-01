@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Models.OTP
+namespace EtherealMade.Models.OTP
 {
     public class OTPModel
     {

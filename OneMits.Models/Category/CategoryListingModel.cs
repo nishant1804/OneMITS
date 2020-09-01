@@ -1,10 +1,10 @@
-﻿using OneMits.Models.Question;
+﻿using EtherealMade.Models.Question;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using OneMits.Data.Models;
+using EtherealMade.Data.Models;
 
-namespace OneMits.Models.Category
+namespace EtherealMade.Models.Category
 {
     public class CategoryListingModel
     {

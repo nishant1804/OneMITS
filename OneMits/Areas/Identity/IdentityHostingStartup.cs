@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OneMits.Data;
-using OneMits.Data.Models;
+using EtherealMade.Data;
+using EtherealMade.Data.Models;
 
-[assembly: HostingStartup(typeof(OneMits.Areas.Identity.IdentityHostingStartup))]
-namespace OneMits.Areas.Identity
+[assembly: HostingStartup(typeof(EtherealMade.Areas.Identity.IdentityHostingStartup))]
+namespace EtherealMade.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

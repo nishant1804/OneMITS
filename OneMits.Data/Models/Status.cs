@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace OneMits.Data.Models
+namespace EtherealMade.Data.Models
 {
     public class Status
     {

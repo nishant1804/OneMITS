@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OneMits.Data;
-using OneMits.Data.Models;
-using OneMits.Models.ApplicationUser;
-using OneMits.Models.Category;
-using OneMits.Models.Question;
-using OneMits.Models.Search;
+using EtherealMade.Data;
+using EtherealMade.Data.Models;
+using EtherealMade.Models.ApplicationUser;
+using EtherealMade.Models.Category;
+using EtherealMade.Models.Question;
+using EtherealMade.Models.Search;
 
-namespace OneMits.Controllers
+namespace EtherealMade.Controllers
 {
     public class SearchController : Controller
     {

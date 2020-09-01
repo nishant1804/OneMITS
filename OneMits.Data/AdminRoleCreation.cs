@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using OneMits.Data.Models;
+using EtherealMade.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OneMits.Data
+namespace EtherealMade.Data
 {
     public class AdminRoleCreation
     {
@@ -24,8 +24,8 @@ namespace OneMits.Data
             {
                 UserName = "admin",
                 NormalizedUserName = "admin",
-                Email = "admin@onemits.com",
-                NormalizedEmail = "admin@onemits.com",
+                Email = "admin@EtherealMade.com",
+                NormalizedEmail = "admin@EtherealMade.com",
                 EmailConfirmed = true,
                 LockoutEnabled = false,
                 SecurityStamp = Guid.NewGuid().ToString()

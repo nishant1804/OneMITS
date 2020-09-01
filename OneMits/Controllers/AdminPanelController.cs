@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OneMits.Data;
-using OneMits.Models.AdminPanel;
+using EtherealMade.Data;
+using EtherealMade.Models.AdminPanel;
 
 
-namespace OneMits.Controllers
+namespace EtherealMade.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminPanelController : Controller

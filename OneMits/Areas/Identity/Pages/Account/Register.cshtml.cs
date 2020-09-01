@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using OneMits.Data.Models;
-using OneMits.Data;
+using EtherealMade.Data.Models;
+using EtherealMade.Data;
 
-namespace OneMits.Areas.Identity.Pages.Account
+namespace EtherealMade.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel

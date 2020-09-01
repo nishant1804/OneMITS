@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OneMits.Models
+namespace EtherealMade.Models
 {
     public class ErrorViewModel 
     {

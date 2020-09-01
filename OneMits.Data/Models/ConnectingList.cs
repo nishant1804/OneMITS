@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace OneMits.Data.Models
+namespace EtherealMade.Data.Models
 {
     public class ConnectingList
     {

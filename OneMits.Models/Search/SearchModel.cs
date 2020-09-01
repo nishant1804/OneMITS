@@ -1,10 +1,10 @@
-﻿using OneMits.Models.ApplicationUser;
-using OneMits.Models.Question;
+﻿using EtherealMade.Models.ApplicationUser;
+using EtherealMade.Models.Question;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Models.Search
+namespace EtherealMade.Models.Search
 {
     public class SearchModel
     {

@@ -1,9 +1,9 @@
-﻿using OneMits.Models.Category;
+﻿using EtherealMade.Models.Category;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Models.Question
+namespace EtherealMade.Models.Question
 {
     public class QuestionListingModel
     {

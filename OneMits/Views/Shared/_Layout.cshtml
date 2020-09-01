@@ -1,20 +1,32 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<OneMits.Data.Models.ApplicationUser> SignInManager
-@inject UserManager<OneMits.Data.Models.ApplicationUser> UserManager
+@inject SignInManager<EtherealMade.Data.Models.ApplicationUser> SignInManager
+@inject UserManager<EtherealMade.Data.Models.ApplicationUser> UserManager
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] OneMits</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>@ViewData["Title"] EtherealMade</title>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script src="js/main3.js"></script>
         <script src="js/site.js"></script>
+        <script src="~/js/ourscript.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
 
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css' />
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css' />
+        <link rel="stylesheet" href="~/css/NewAboutStyle.css" />
+        <link rel="stylesheet" href="~/css/FAQstyle.css" />
+        <link rel="stylesheet" href="~/css/ourstyle.css" />
+        <link rel="stylesheet" href="~/css/contactstyle.css" />
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css' />
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800' />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css' />
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
         <link href="load-more-button.css" rel="stylesheet" />
@@ -39,6 +51,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
         <link rel="stylesheet" href="~/css/style4.css" />
+        <link rel="stylesheet" href="~/css/homeOne.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -52,59 +65,142 @@
     </environment>
 
 </head>
-<body class="w3-light-grey">
-    <div class="w3-top " style="background: white;">
-        <div class="w3-bar" id="myNavbar">
-            <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
-                <i class="fa fa-bars"></i>
-            </a>
-            <a asp-controller="Home" asp-action="Index" class="w3-bar-item w3-button"><h2>ONEMITS</h2></a>
-            <a asp-controller="Home" asp-action="Index" class="w3-bar-item navitemMargin w3-button w3-hide-small">Home</a>
-            @if (User.IsInRole("Admin"))
-            {
-                <a asp-controller="AdminPanel" asp-action="Index" class="w3-bar-item  navitemMargin w3-button w3-hide-small"><i class="fa fa-user"></i>Admin Panel</a>
-            }
-            <a asp-controller="Status" asp-action="Index" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-th"></i>Status</a>
-            <a asp-controller="Category" asp-action="Index" class="w3-bar-item navitemMargin  w3-button w3-hide-small"><i class="fa fa-th"></i> Forums</a>
-            <a asp-controller="Home" asp-action="AboutUs" class="w3-bar-item navitemMargin  w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
-            <a asp-controller="Category" asp-action="Index" class=" w3-hover-red" onclick="toggleFunction()">
-                <partial name="_LoginPartial" />
-            </a>
-            <a class="w3-bar-item w3-hide-small navitemMargin w3-right w3-button  w3-hover-red">
-                <form asp-controller="Search" asp-action="Search" method="post">
-                    <i class="fa fa-search"></i><input name="SearchQuery" type="text" placeholder="Search.." required=required />
-                </form>
-            </a>
+<body class="font_pitch">
+    
+
+    <div class="row">
+        <div class="col-sm-2">
         </div>
-
-        <!-- Navbar on small screens -->
-        <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium ">
-            <a asp-controller="Home" asp-action="Index" class="w3-bar-item w3-button" onclick="toggleFunction()">HOME</a>
-            @if (User.IsInRole("Admin"))
-            {
-                <a asp-controller="AdminPanel" asp-action="Index" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-user"></i>Admin Panel</a>
-            }
-
-            <a asp-controller="Category" asp-action="Index" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-th"></i>Forum</a>
-            <a asp-controller="Status" asp-action="Index" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-th"></i>Status</a>
-            <a asp-controller="Home" asp-action="AboutUs" class="w3-bar-item w3-button" onclick="toggleFunction()"><i class="fa fa-envelope"></i>About Us</a>
-            <a asp-controller="Category" asp-action="Index" onclick="toggleFunction()">
-                <partial name="_LoginPartial" />
-            </a>
-            <a href="#" class="w3-bar-item w3-button w3-hover-red" onclick="toggleFunction()">
-                <i class="fa fa-search"></i>
-            </a>
+        <div class="col-sm-10 header__top">
+            <header class="header">
+                <a asp-controller="Home" asp-action="Index" class="header__logo">Ethereal Made</a>
+                <nav class="menu underline-text">
+                    <a asp-controller="Home" asp-action="Index">Shop+</a>
+                    <a asp-controller="Home" asp-action="Index">About</a>
+                    <a asp-controller="Home" asp-action="Index">FAQ</a>
+                    <a asp-controller="Home" asp-action="Index">Our Fact</a>
+                    <a asp-controller="Home" asp-action="Index"><img src="https://img.icons8.com/material-rounded/55/000000/favorite-cart.png" /></a>
+                </nav>
+            </header>
         </div>
     </div>
+
     <div class="mt-200 ">
         @RenderBody()
     </div>
 
+    <a href="#cd-nav" class="cd-nav-trigger">
+        Menu
+        <span class="cd-nav-icon"></span>
 
+        <svg x="0px" y="0px" width="54px" height="54px" viewBox="0 0 54 54">
+            <circle fill="transparent" stroke="#656e79" stroke-width="1" cx="27" cy="27" r="25" stroke-dasharray="157 157" stroke-dashoffset="157"></circle>
+        </svg>
+    </a>
+
+    <!-- Intro Page -->
+    <div id="cd-nav" class="cd-nav">
+        <div class=" line2">
+            <div class="lines ">
+                <div class="cd-navigation-wrapper">
+                    <div class="cd-half-block">
+                        <h2>HELIAS</h2>
+
+                        <nav>
+                            <ul class="cd-primary-nav fullscr " style="list-style-type: none;">
+                                <li><a href="./Shopindex.html" data-letters="Shop" class="link link--kukuri">Shop</a></li>
+                                <li><a href="./AboutUs.html" data-letters="About" class="link link--kukuri">About</a></li>
+                                <li><a href="./OurFacts.html" data-letters="Our Fact" class="link link--kukuri">Our Fact</a></li>
+                                <li><a href="./FAQ.html" data-letters="FAQ" class="link link--kukuri">FAQ</a></li>
+
+                            </ul>
+                        </nav>
+
+                        <div>
+                            <nav>
+                                <ul class=" fullscr full-down underline-text" style="list-style-type: none;">
+                                    <li><a href="./Shopindex.html">Blog </a></li>
+                                    <li><a href="./AboutUs.html">Guest Stories</a></li>
+                                    <li><a href="./FAQ.html">Return Policy </a></li>
+                                    <li><a href="./OurFacts.html">Privacy Policy</a></li>
+                                    <li><a href="./OurFacts.html">Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div><!-- .cd-half-block -->
+
+                    <div class="cd-half-block">
+                        <address>
+                            <ul class="cd-contact-info" style="list-style-type: none;">
+                                <li><img src="https://img.icons8.com/ios-filled/25/000000/email-open.png" /></li>
+                                <li><img src="https://img.icons8.com/metro/20/000000/instagram-new.png" /></li>
+                                <li>
+                                    <img src="https://img.icons8.com/android/20/000000/facebook-new.png" />
+                                </li>
+                            </ul>
+                        </address>
+                        <div>
+                            <nav>
+                                <ul class=" fullscr full-down cd-contact-info " style="list-style-type: none;">
+                                    <li class="fullscr "><a style="color: black">Follow us </a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="cd-half-block " style="float: right;">
+                        <div class="scroll-container diff-size">
+                            <img class="scroll-section" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/flower-sand.jpg" />
+                            <img class="scroll-section" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/man-thinking.jpg" />
+                            <img class="scroll-section" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/man-laughing.jpg" />
+                            <img class="scroll-section" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/piggy-bank.jpg" />
+                            <img class="scroll-section" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/couple-smiling.jpg" />
+                            <img class="scroll-section" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/man-luggage.jpg" />
+                        </div>
+                    </div> <!-- .cd-half-block -->
+                </div> <!-- .cd-half-block -->
+            </div>
+        </div>
+    </div>
+    <!-- .cd-navigation-wrapper -->
+    </div> <!-- .cd-nav -->
 
     <footer class="w3-container w3-dark-grey  mt-20" style="padding:32px">
-        <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
-        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">CopyRight@OneMITS</a></p>
+        <svg viewBox="0 0 120 28">
+            <defs>
+                <mask id="xxx">
+                    <circle cx="7" cy="12" r="40" fill="#fff" />
+                </mask>
+
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+                    <feColorMatrix in="blur" mode="matrix" values="
+           1 0 0 0 0
+           0 1 0 0 0
+           0 0 1 0 0
+           0 0 0 13 -9" result="goo" />
+                    <feBlend in="SourceGraphic" in2="goo" />
+                </filter>
+                <path id="wave" d="M 0,10 C 30,10 30,15 60,15 90,15 90,10 120,10 150,10 150,15 180,15 210,15 210,10 240,10 v 28 h -240 z" />
+            </defs>
+
+            <use id="wave3" class="wave" xlink:href="#wave" x="0" y="-2"></use>
+            <use id="wave2" class="wave" xlink:href="#wave" x="0" y="0"></use>
+
+            <g class="gooeff">
+                <circle class="drop drop1" cx="20" cy="2" r="1.8" />
+                <circle class="drop drop2" cx="25" cy="2.5" r="1.5" />
+                <circle class="drop drop3" cx="16" cy="2.8" r="1.2" />
+                <circle class="drop drop4" cx="23" cy="3" r="1.6" />
+                <use id="wave1" class="wave" xlink:href="#wave" x="0" y="1" />
+
+                <!-- g mask="url(#xxx)">
+                  <path   id="wave1"  class="wave" d="M 0,10 C 30,10 30,15 60,15 90,15 90,10 120,10 150,10 150,15 180,15 210,15 210,10 240,10 v 28 h -240 z" />
+                  </g>
+                </g -->
+
+            </g>
+
+        </svg>
     </footer>
 
 
@@ -125,6 +221,127 @@
 
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type='text/javascript'>
+
+        (function ($) {
+
+            function initTurnCss() {
+                var css = "-webkit-keyframes circTxt--rotating{from{transform-origin:center;-webkit-transform:rotate(0);-o-transform:rotate(0);transform:rotate(0)}to{transform-origin:center;-webkit-transform:rotate(360deg);-o-transform:rotate(360deg);transform:rotate(360deg)}}",
+                    head = document.head || document.getElementsByTagName("head")[0],
+                    style = document.createElement("style");
+
+                head.appendChild(style);
+
+                style.type = "text/css";
+                if (style.styleSheet) {
+                    // This is required for IE8 and below.
+                    style.styleSheet.cssText = css;
+                } else {
+                    style.appendChild(document.createTextNode(css));
+                }
+            }
+
+            function createCircularText(txt, radius, classIndex) {
+                (txt = txt.split("")), (classIndex = classIndex[0]);
+                //classIndex = $('.circTxt')[0];
+                var deg = 360 / txt.length,
+                    origin = 0;
+                txt.forEach(ea => {
+                    ea = `<p style='height:${radius}px;width:${radius}px;text-align:center;position:absolute;transform:rotate(${origin}deg);transform-origin:bottom center'>${ea}</p>`;
+                    classIndex.innerHTML += ea;
+                    origin += deg;
+                });
+            }
+
+            $.fn.circleText = function (parameters = {}) {
+                $(this).each(function () {
+                    var paramsdefault = {
+                        padding: 10,
+                        glue: "",
+                        turn: false,
+                        duration: 10,
+                        repeat: 1,
+                        radius: 100,
+                        background: "",
+                        rounded: true,
+                        reverse: false,
+                    };
+
+                    var params = {
+                        padding:
+                            "padding" in parameters ? parameters.padding : paramsdefault.padding,
+                        glue: "glue" in parameters ? parameters.glue : paramsdefault.glue,
+                        turn: "turn" in parameters ? parameters.turn : paramsdefault.turn,
+                        duration:
+                            "duration" in parameters ? parameters.duration : paramsdefault.duration,
+                        repeat: "repeat" in parameters ? parameters.repeat : paramsdefault.repeat,
+                        radius: "radius" in parameters ? parameters.radius : paramsdefault.radius,
+                        background:
+                            "background" in parameters
+                                ? parameters.background
+                                : paramsdefault.background,
+                        rounded:
+                            "rounded" in parameters ? parameters.rounded : paramsdefault.rounded,
+                        content:
+                            "content" in parameters ? parameters.content : paramsdefault.content,
+                        reverse:
+                            "reverse" in parameters ? parameters.reverse : paramsdefault.reverse
+                    };
+
+                    //set the content
+                    var content;
+                    if (params.content) {
+                        //if !empty params.content -> set the content as content + glue
+                        content = params.content + params.glue;
+                    } else if ($(this).text().length > 0) {
+                        //if empty params.content -> set the content as innerhtml + glue
+                        content = $(this).html() + params.glue;
+                    } else {
+                        content = "You forgot to include content ❤";
+                    }
+                    //erase the html to create all chars after
+                    $(this).html("");
+
+                    //create the circular text
+                    createCircularText(content.repeat(params.repeat), params.radius, $(this));
+
+                    //set css for the container
+                    $(this).css({
+                        height: params.radius * 2 + params.padding * 2,
+                        width: params.radius * 2 + params.padding * 2,
+                        display: "flex",
+                        "justify-content": "center",
+                        padding: 144,
+                        background: params.background,
+                        "border-radius": params.rounded ? "50%" : ""
+                    });
+
+                    //set the
+                    if (params.turn === true) {
+                        initTurnCss();
+                        var animation_direction = (params.reverse) ? 'reverse' : 'normal'
+                        var animation = `circTxt--rotating ${params.duration}s linear infinite ${animation_direction}`;
+                        $(this).css({
+                            "transform-origin": "center",
+                            animation: animation
+                        });
+                    }
+                });
+            };
+        })(jQuery);
+
+    </script>
+    <!-- Start Plugin Jquery -->
+
+    <script type='text/javascript'>
+        $(".text").circleText({
+            turn: true,
+            duration: 10,
+            reverse: true,
+            radius: 120,
+            rounded: true,
+        });
+    </script>
     <script>
         function toggleFunction() {
             var x = document.getElementById("navDemo");
@@ -144,10 +361,21 @@
             }
         }
     </script>
+    <script src="~/js/script.js"></script>
+    <script src="~/js/NewAboutScript.js"></script>
+    <script src="~/js/Homescript.js"></script>
+    <script src="~/js/ourscript.js"></script>
+    <script src="~/js/slider.js"></script>
     <script src="~/js/main3.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js'></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js'></script>
-    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
     @RenderSection("Scripts", required: false)
 </body>

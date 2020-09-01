@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Models.Search
+namespace EtherealMade.Models.Search
 {
     class UserDetailsModel
     {

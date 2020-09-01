@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Models.Question
+namespace EtherealMade.Models.Question
 {
     public class NewQuestionModel
     {

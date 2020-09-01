@@ -2,16 +2,16 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using OneMits.Data;
-using OneMits.Data.Models;
-using OneMits.Models.ApplicationUser;
-using OneMits.Models.Search;
+using EtherealMade.Data;
+using EtherealMade.Data.Models;
+using EtherealMade.Models.ApplicationUser;
+using EtherealMade.Models.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OneMits.Controllers
+namespace EtherealMade.Controllers
 {
     [Authorize]
     public class ProfileController : Controller

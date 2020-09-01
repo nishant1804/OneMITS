@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace OneMits.Areas.Identity.Pages.Account.Manage
+namespace EtherealMade.Areas.Identity.Pages.Account.Manage
 {
     public static class ManageNavPages
     {

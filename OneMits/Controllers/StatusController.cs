@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using OneMits.Data;
-using OneMits.Data.Models;
-using OneMits.Models.Status;
+using EtherealMade.Data;
+using EtherealMade.Data.Models;
+using EtherealMade.Models.Status;
 
-namespace OneMits.Controllers
+namespace EtherealMade.Controllers
 {
     [Authorize]
     public class StatusController : Controller

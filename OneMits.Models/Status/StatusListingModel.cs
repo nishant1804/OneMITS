@@ -1,9 +1,9 @@
-﻿using OneMits.Models.Category;
+﻿using EtherealMade.Models.Category;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Models.Status
+namespace EtherealMade.Models.Status
 {
     public class StatusListingModel
     {

@@ -1,10 +1,10 @@
-﻿using OneMits.Models.Answer;
+﻿using EtherealMade.Models.Answer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace OneMits.Models.Question
+namespace EtherealMade.Models.Question
 {
     public class QuestionIndexModel
     {

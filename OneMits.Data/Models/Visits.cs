@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Data.Models
+namespace EtherealMade.Data.Models
 {
     public class Visits
     {

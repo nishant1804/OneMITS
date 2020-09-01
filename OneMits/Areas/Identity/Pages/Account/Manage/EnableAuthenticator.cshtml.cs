@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using OneMits.Data.Models;
+using EtherealMade.Data.Models;
 
-namespace OneMits.Areas.Identity.Pages.Account.Manage
+namespace EtherealMade.Areas.Identity.Pages.Account.Manage
 {
     public class EnableAuthenticatorModel : PageModel
     {
@@ -149,7 +149,7 @@ namespace OneMits.Areas.Identity.Pages.Account.Manage
         {
             return string.Format(
                 AuthenticatorUriFormat,
-                _urlEncoder.Encode("OneMits"),
+                _urlEncoder.Encode("EtherealMade"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }

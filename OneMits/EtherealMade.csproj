@@ -1,0 +1,128 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>aspnet-EtherealMade-80808A1F-C8BF-4E13-9BC9-766D20768DAF</UserSecretsId>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Notification\**" />
+    <Compile Remove="Views\OTP\**" />
+    <Compile Remove="Views\Profile\**" />
+    <Compile Remove="Views\Search\**" />
+    <Compile Remove="Views\Status\**" />
+    <Content Remove="Views\Notification\**" />
+    <Content Remove="Views\OTP\**" />
+    <Content Remove="Views\Profile\**" />
+    <Content Remove="Views\Search\**" />
+    <Content Remove="Views\Status\**" />
+    <EmbeddedResource Remove="Views\Notification\**" />
+    <EmbeddedResource Remove="Views\OTP\**" />
+    <EmbeddedResource Remove="Views\Profile\**" />
+    <EmbeddedResource Remove="Views\Search\**" />
+    <EmbeddedResource Remove="Views\Status\**" />
+    <None Remove="Views\Notification\**" />
+    <None Remove="Views\OTP\**" />
+    <None Remove="Views\Profile\**" />
+    <None Remove="Views\Search\**" />
+    <None Remove="Views\Status\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\AnswerController.cs" />
+    <Compile Remove="Controllers\NotificationController.cs" />
+    <Compile Remove="Controllers\OTPController.cs" />
+    <Compile Remove="Controllers\ProfileController.cs" />
+    <Compile Remove="Controllers\SearchController.cs" />
+    <Compile Remove="Controllers\StatusController.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Remove="Views\Home\Privacy.cshtml" />
+    <Content Remove="wwwroot\css\NewFile.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\NewFile.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Category\Create.cshtml" />
+    <None Include="Views\Category\Index.cshtml" />
+    <None Include="Views\Category\Topic.cshtml" />
+    <None Include="Views\Question\Create.cshtml" />
+    <None Include="Views\Question\Index.cshtml" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\animated.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\core.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\icons.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\larger.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\list.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\path.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\less\variables.less" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <None Include="wwwroot\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <None Include="wwwroot\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.svg" />
+    <None Include="wwwroot\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff2" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.ElasticBeanstalk" Version="3.3.100.73" />
+    <PackageReference Include="AWSSDK.S3" Version="3.3.104.25" />
+    <PackageReference Include="MailKit" Version="2.3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\EtherealMade.Data\EtherealMade.Data.csproj" />
+    <ProjectReference Include="..\EtherealMade.InterfaceImplementation\EtherealMade.InterfaceImplementation.csproj" />
+    <ProjectReference Include="..\EtherealMade.Models\EtherealMade.Models.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

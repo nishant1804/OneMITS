@@ -1,10 +1,10 @@
-﻿using OneMits.Models.Category;
-using OneMits.Models.Question;
+﻿using EtherealMade.Models.Category;
+using EtherealMade.Models.Question;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Models.Category
+namespace EtherealMade.Models.Category
 {
     public class CategoryTopicModel
     {

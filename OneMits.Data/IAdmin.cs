@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Data
+namespace EtherealMade.Data
 {
     class IAdmin
     {

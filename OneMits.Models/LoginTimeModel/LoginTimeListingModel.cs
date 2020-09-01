@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Models.LoginTimeModel
+namespace EtherealMade.Models.LoginTimeModel
 {
     public class LoginTimeListingModel
     {

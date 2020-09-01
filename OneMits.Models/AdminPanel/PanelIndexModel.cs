@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace OneMits.Models.AdminPanel
+namespace EtherealMade.Models.AdminPanel
 {
     public class PanelIndexModel
     {

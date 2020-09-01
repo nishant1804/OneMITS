@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OneMits.Data;
-using OneMits.Data.Models;
-using OneMits.InterfaceImplementation;
-using OneMits.Models;
-using OneMits.Models.Category;
-using OneMits.Models.Home;
-using OneMits.Models.Question;
+using EtherealMade.Data;
+using EtherealMade.Data.Models;
+using EtherealMade.InterfaceImplementation;
+using EtherealMade.Models;
+using EtherealMade.Models.Category;
+using EtherealMade.Models.Home;
+using EtherealMade.Models.Question;
 
 
-namespace OneMits.Controllers
+namespace EtherealMade.Controllers
 {
     public class HomeController : Controller
     {
@@ -28,8 +28,7 @@ namespace OneMits.Controllers
 
         public IActionResult Index()
         {
-            var model = BuildHomeIndex();
-            return View(model);
+            return View();
         }
 
         private HomeIndexModel BuildHomeIndex()
@@ -114,16 +113,16 @@ namespace OneMits.Controllers
             return View();
         }
 
-        public IActionResult NotFound()
+        public IActionResult Faq()
         {
             return View();
         }
 
-        public IActionResult ConFirm()
+        public IActionResult Contact()
         {
             return View();
         }
-        public IActionResult Block()
+        public IActionResult OurFacts()
         {
             return View();
         }

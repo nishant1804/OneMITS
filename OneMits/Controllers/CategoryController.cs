@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using OneMits.Data;
-using OneMits.Data.Models;
-using OneMits.InterfaceImplementation;
-using OneMits.Models.Category;
-using OneMits.Models.Question;
+using EtherealMade.Data;
+using EtherealMade.Data.Models;
+using EtherealMade.InterfaceImplementation;
+using EtherealMade.Models.Category;
+using EtherealMade.Models.Question;
 
-namespace OneMits.Controllers
+namespace EtherealMade.Controllers
 {
     public class CategoryController : Controller
     {

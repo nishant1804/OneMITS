@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using OneMits.Data;
-using OneMits.Data.Models;
-using OneMits.InterfaceImplementation;
-using OneMits.Models.ApplicationUser;
+using EtherealMade.Data;
+using EtherealMade.Data.Models;
+using EtherealMade.InterfaceImplementation;
+using EtherealMade.Models.ApplicationUser;
 
-namespace OneMits.Controllers
+namespace EtherealMade.Controllers
 {
     public class NotificationController : Controller
     {

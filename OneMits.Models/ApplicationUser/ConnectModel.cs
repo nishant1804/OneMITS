@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Models.ApplicationUser
+namespace EtherealMade.Models.ApplicationUser
 {
     public class ConnectModel
     {

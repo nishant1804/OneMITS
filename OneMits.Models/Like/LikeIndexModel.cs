@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Models.Like
+namespace EtherealMade.Models.Like
 {
     public class LikeIndexModel
     {

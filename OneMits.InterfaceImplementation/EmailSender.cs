@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using OneMits.Data.Models;
+using EtherealMade.Data.Models;
 using System;
 using MailKit.Net.Smtp;
 using System.Threading.Tasks;
 
-namespace OneMits.InterfaceImplementation
+namespace EtherealMade.InterfaceImplementation
 {
     public class EmailSender : IEmailSender
     {

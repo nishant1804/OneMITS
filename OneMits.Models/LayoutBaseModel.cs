@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OneMits.Models
+namespace EtherealMade.Models
 {
     public class LayoutBaseModel
     {

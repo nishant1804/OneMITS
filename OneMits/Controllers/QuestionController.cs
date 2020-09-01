@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using OneMits.Data;
-using OneMits.Data.Models;
-using OneMits.Models.Answer;
-using OneMits.Models.Like;
-using OneMits.Models.Question;
+using EtherealMade.Data;
+using EtherealMade.Data.Models;
+using EtherealMade.Models.Answer;
+using EtherealMade.Models.Like;
+using EtherealMade.Models.Question;
 
-namespace OneMits.Controllers
+namespace EtherealMade.Controllers
 {
     [Authorize]
     public class QuestionController : Controller

@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using OneMits.Data.Models;
+using EtherealMade.Data.Models;
 
-namespace OneMits.Areas.Identity.Pages.Account.Manage
+namespace EtherealMade.Areas.Identity.Pages.Account.Manage
 {
     public class DownloadPersonalDataModel : PageModel
     {
