@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="AWSSDK.ElasticBeanstalk" Version="3.3.100.73" />
     <PackageReference Include="AWSSDK.S3" Version="3.3.104.25" />
-    <PackageReference Include="MailKit" Version="2.3.1.6" />
+    <PackageReference Include="MailKit" Version="4.16.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.8" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
